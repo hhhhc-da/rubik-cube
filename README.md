@@ -23,6 +23,6 @@ git pull --rebase nanoka master
 # 这边修改好文件之后
 git add *
 git commit -am"xxx" # xxx 是你要添加的注释
-git branch -M yyy   # yyy 是你要信添加的分支
+git branch -M yyy   # yyy 是你要新添加的分支
 git push -u nanoka yyy
 ```
