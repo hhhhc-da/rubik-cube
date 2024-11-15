@@ -73,45 +73,45 @@ CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
 CMakeFiles/main.dir/src/main.cpp.obj: D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/main.cpp
 CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/main.cpp.obj"
-	D:\pandownload1\COMPUTER\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/main.cpp.obj -MF CMakeFiles\main.dir\src\main.cpp.obj.d -o CMakeFiles\main.dir\src\main.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/main.cpp.obj -MF CMakeFiles\main.dir\src\main.cpp.obj.d -o CMakeFiles\main.dir\src\main.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp
 
 CMakeFiles/main.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/main.cpp.i"
-	D:\pandownload1\COMPUTER\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp > CMakeFiles\main.dir\src\main.cpp.i
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp > CMakeFiles\main.dir\src\main.cpp.i
 
 CMakeFiles/main.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/main.cpp.s"
-	D:\pandownload1\COMPUTER\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp -o CMakeFiles\main.dir\src\main.cpp.s
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp -o CMakeFiles\main.dir\src\main.cpp.s
 
 CMakeFiles/main.dir/src/cube_array.cpp.obj: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/cube_array.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
 CMakeFiles/main.dir/src/cube_array.cpp.obj: D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/cube_array.cpp
 CMakeFiles/main.dir/src/cube_array.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/cube_array.cpp.obj"
-	D:\pandownload1\COMPUTER\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/cube_array.cpp.obj -MF CMakeFiles\main.dir\src\cube_array.cpp.obj.d -o CMakeFiles\main.dir\src\cube_array.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\cube_array.cpp
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/cube_array.cpp.obj -MF CMakeFiles\main.dir\src\cube_array.cpp.obj.d -o CMakeFiles\main.dir\src\cube_array.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\cube_array.cpp
 
 CMakeFiles/main.dir/src/cube_array.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/cube_array.cpp.i"
-	D:\pandownload1\COMPUTER\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\cube_array.cpp > CMakeFiles\main.dir\src\cube_array.cpp.i
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\cube_array.cpp > CMakeFiles\main.dir\src\cube_array.cpp.i
 
 CMakeFiles/main.dir/src/cube_array.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/cube_array.cpp.s"
-	D:\pandownload1\COMPUTER\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\cube_array.cpp -o CMakeFiles\main.dir\src\cube_array.cpp.s
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\cube_array.cpp -o CMakeFiles\main.dir\src\cube_array.cpp.s
 
 CMakeFiles/main.dir/src/rubik_cube.cpp.obj: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/rubik_cube.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
 CMakeFiles/main.dir/src/rubik_cube.cpp.obj: D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/rubik_cube.cpp
 CMakeFiles/main.dir/src/rubik_cube.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/rubik_cube.cpp.obj"
-	D:\pandownload1\COMPUTER\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/rubik_cube.cpp.obj -MF CMakeFiles\main.dir\src\rubik_cube.cpp.obj.d -o CMakeFiles\main.dir\src\rubik_cube.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\rubik_cube.cpp
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/rubik_cube.cpp.obj -MF CMakeFiles\main.dir\src\rubik_cube.cpp.obj.d -o CMakeFiles\main.dir\src\rubik_cube.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\rubik_cube.cpp
 
 CMakeFiles/main.dir/src/rubik_cube.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/rubik_cube.cpp.i"
-	D:\pandownload1\COMPUTER\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\rubik_cube.cpp > CMakeFiles\main.dir\src\rubik_cube.cpp.i
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\rubik_cube.cpp > CMakeFiles\main.dir\src\rubik_cube.cpp.i
 
 CMakeFiles/main.dir/src/rubik_cube.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/rubik_cube.cpp.s"
-	D:\pandownload1\COMPUTER\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\rubik_cube.cpp -o CMakeFiles\main.dir\src\rubik_cube.cpp.s
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\rubik_cube.cpp -o CMakeFiles\main.dir\src\rubik_cube.cpp.s
 
 # Object files for target main
 main_OBJECTS = \
