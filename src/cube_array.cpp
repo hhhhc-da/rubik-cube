@@ -1,4 +1,4 @@
-#include "cube_array.hpp"
+#include <cube_array.hpp>
 
 // Ä§·½Ðý×ªº¯Êý
 nanoka_status Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_t move_step){

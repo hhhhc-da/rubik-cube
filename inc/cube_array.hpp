@@ -1,15 +1,13 @@
 #ifndef CUBE_ARRAY_NANOKA_H
 #define CUBE_ARRAY_NANOKA_H
 
-#include "rubik_cube_base.hpp"
+#include <rubik_cube_base.hpp>
 
 class Cube_Array{
 public:
-    Cube_Array() : cube_num(2), layer_num(6) {
-
-    }
-    Cube_Array(int cube) : cube_num(cube), layer_num(6);
-    Cube_Array(int cube, int layer) : cube_num(cube), layer_num(layer);
+    Cube_Array();
+    Cube_Array(int);
+    Cube_Array(int, int);
     ~Cube_Array();
 
     // Ä§·½Ðý×ªº¯Êý

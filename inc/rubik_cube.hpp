@@ -1,7 +1,7 @@
 #ifndef RUBIK_CUBE_NANOKA_H
 #define RUBIK_CUBE_NANOKA_H
 
-#include "rubik_cube_base.hpp"
+#include <rubik_cube_base.hpp>
 
 // Ä§·½Àà
 class Rubik_Cube

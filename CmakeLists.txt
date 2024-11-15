@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(rubik_cube_nanoka)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+include_directories(inc)
+
+set(SOURCE_FILES
+    src/main.cpp
+    src/cube_array.cpp
+    src/rubik_cube.cpp
+)
+
+
+add_executable(main ${SOURCE_FILES})
