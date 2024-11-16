@@ -1,7 +1,7 @@
 #include <cube_array.hpp>
 
 // 魔方初始化函数
-nanoka_status_t Cube_Array::cube_init(nanoka_num_t data_len, nanoka_num_t layer_num)
+nanoka_status_t Cube_Array::cube_init(void)
 {
     try
     {
@@ -10,7 +10,7 @@ nanoka_status_t Cube_Array::cube_init(nanoka_num_t data_len, nanoka_num_t layer_
             throw std::runtime_error("cube_storage.size() != layer_num");
 
         // 将每个平面的所有内容都覆盖
-        for (int i = 0; i < NANOKA_LAYER_NUM; ++i)
+        for (int i = 0; i < layer_num; ++i)
         {
             nanoka_status_t ret = cube_full(i, i);
 
@@ -21,16 +21,16 @@ nanoka_status_t Cube_Array::cube_init(nanoka_num_t data_len, nanoka_num_t layer_
     }
     catch (std::runtime_error e)
     {
-        std::cerr << "(Cube_Array::cube_init) Runtime_error: " << e.what()  << " File " << __FILE__ << ", line " << __LINE__  << "." << std::endl;
+        std::cerr << "(Cube_Array::cube_init) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     catch (...)
     {
-        std::cerr << "(Cube_Array::cube_init) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__  << "." << std::endl;
+        std::cerr << "(Cube_Array::cube_init) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
 }
 
-// 魔方填充函数 (使用 int 类型数据表示颜色)
+// 魔方填充函数 (使用 nanoka_num_t 类型数据表示颜色)
 nanoka_status_t Cube_Array::cube_full(nanoka_num_t layer, nanoka_num_t color)
 {
     try
@@ -42,11 +42,11 @@ nanoka_status_t Cube_Array::cube_full(nanoka_num_t layer, nanoka_num_t color)
     }
     catch (std::runtime_error e)
     {
-        std::cerr << "(Cube_Array::cube_full) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__  << "." << std::endl;
+        std::cerr << "(Cube_Array::cube_full) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     catch (...)
     {
-        std::cerr << "(Cube_Array::cube_full) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__  << "." << std::endl;
+        std::cerr << "(Cube_Array::cube_full) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
 }
@@ -73,6 +73,7 @@ Cube_Array::Cube_Array() : cube_num(NANOKA_CASE_NUM), layer_num(NANOKA_LAYER_NUM
     // 拷贝指针头
     for (nanoka_num_t i = 0; i < NANOKA_LAYER_NUM; ++i)
         cube_storage.push_back(std::make_shared<Layer_Array>(NANOKA_CASE_NUM * NANOKA_CASE_NUM));
+    cube_init();
 }
 
 // 单一传值构造函数
@@ -80,6 +81,7 @@ Cube_Array::Cube_Array(nanoka_num_t cube) : cube_num(cube), layer_num(6)
 {
     for (nanoka_num_t i = 0; i < NANOKA_LAYER_NUM; ++i)
         cube_storage.push_back(std::make_shared<Layer_Array>(cube * cube));
+    cube_init();
 }
 
 // 全部传值构造函数
@@ -87,4 +89,5 @@ Cube_Array::Cube_Array(nanoka_num_t cube, nanoka_num_t layer) : cube_num(cube), 
 {
     for (nanoka_num_t i = 0; i < layer; ++i)
         cube_storage.push_back(std::make_shared<Layer_Array>(cube * cube));
+    cube_init();
 }
