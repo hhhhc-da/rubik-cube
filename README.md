@@ -5,7 +5,7 @@
 
 #### Cmake + MinGW-Make使用说明
 
-Cmake 编译命令示例
+Cmake 命令示例
 
 ```
 cd build
@@ -14,7 +14,7 @@ make
 ./bin/main.exe
 ```
 
-Git 编译命令示例
+Git 命令示例
 
 ```
 git init
