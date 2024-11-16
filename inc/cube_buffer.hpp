@@ -3,7 +3,7 @@
 
 #include <rubik_cube_base.hpp>
 
-typedef std::vector<int> cube_status_t;
+// typedef std::vector<int> cube_status_t;
 
 class Cube_Buffer
 {

@@ -8,8 +8,8 @@ class Cube_Array
 public:
     // 拷贝控制函数
     Cube_Array();
-    Cube_Array(int);
-    Cube_Array(int, int);
+    Cube_Array(nanoka_num_t);
+    Cube_Array(nanoka_num_t, nanoka_num_t);
     ~Cube_Array();
 
     // 魔方旋转函数
@@ -17,7 +17,7 @@ public:
     // 魔方初始化函数
     nanoka_status_t cube_init(void);
     // 魔方填充函数 (使用 int 类型数据表示颜色)
-    nanoka_status_t cube_full(int layer, int color);
+    nanoka_status_t cube_full(nanoka_num_t layer, nanoka_num_t color);
 
 private:
     // 魔方阶数

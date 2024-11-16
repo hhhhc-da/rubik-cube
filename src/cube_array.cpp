@@ -3,14 +3,29 @@
 // 魔方初始化函数
 nanoka_status_t Cube_Array::cube_init(void)
 {
-    // 将每个平面的所有内容都覆盖
-    for (int i = 0; i < NANOKA_LAYER_NUM; ++i)
-        cube_full(i, i);
+    try
+    {
+        // 将每个平面的所有内容都覆盖
+        for (int i = 0; i < NANOKA_LAYER_NUM; ++i)
+            cube_full(i, i);
+        return NANOKA_SUCCESS;
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(Array::cube_init) Runtime_error: " << e.what() << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(Array::cube_init) Unknown_error: Process crushed." << std::endl;
+    }
+    return NANOKA_ERROR;
 }
 
 // 魔方填充函数 (使用 int 类型数据表示颜色)
-nanoka_status_t Cube_Array::cube_full(int layer, int color)
+nanoka_status_t Cube_Array::cube_full(nanoka_num_t layer, nanoka_num_t color)
 {
+    for (int i = 0; i <)
+        cube_storage
 }
 
 // 魔方旋转函数

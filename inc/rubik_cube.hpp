@@ -8,10 +8,6 @@ class Rubik_Cube
 {
 public:
     // 构造函数
-    Rubik_Cube() : cube_num(2), layer_num(6) {}
-    Rubik_Cube(int cube) : cube_num(cube), layer_num(6) {}
-    Rubik_Cube(int cube, int layer) : cube_num(cube), layer_num(layer) {}
-
     Rubik_Cube(Rubik_Cube& x) {
         cube_num = x.cube_num;
         layer_num = x.layer_num;
@@ -33,11 +29,11 @@ public:
 
 private:
     // 魔方阶数
-    int cube_num;
+    nanoka_num_t cube_num;
     // 魔方平面数
-    int layer_num;
+    nanoka_num_t layer_num;
     // 魔方内容存储体
-    std::vector<int> cube_storage;
+    std::vector<nanoka_num_t> cube_storage;
 };
 
 #endif
