@@ -6,16 +6,18 @@ nanoka_status_t Layer_Array::route_90(bool reverse = false)
     // 拷贝一份后构造
     try
     {
-        if (!reverse)
+        if (reverse)
         {
             nanoka_storage_t data = storage.at(0);
             storage.emplace_back(data);
+            storage.erase(storage.begin(), storage.begin() + 1);
             return NANOKA_SUCCESS;
         }
         else
         {
             nanoka_storage_t data = storage.at(data_len - 1);
             storage.emplace(storage.begin(), data);
+            storage.pop_back();
             return NANOKA_SUCCESS;
         }
     }
@@ -38,7 +40,6 @@ std::vector<nanoka_storage_t> Layer_Array::get_storage(void) const
 
 void Layer_Array::print_storage(void) const
 {
-    // 拷贝一份后构造
     try
     {
         nanoka_num_t a = sqrt(data_len);
@@ -58,7 +59,7 @@ void Layer_Array::print_storage(void) const
         //     std::cout << " |\n";
         // }
 
-        // 顺时针存储时使用的特殊函数
+        // 顺时针存储时使用的特殊函数 (仅限二阶魔方使用)
         std::cout << "| " << static_cast<nanoka_num_t>(storage.at(0))
                   << " " << static_cast<nanoka_num_t>(storage.at(1)) << " |\n"
                   << "| " << static_cast<nanoka_num_t>(storage.at(3))
@@ -76,7 +77,7 @@ void Layer_Array::print_storage(void) const
 }
 
 // 获取所有旋转后的情况结果
-std::set<std::vector<nanoka_storage_t>> Layer_Array::get_all_route_case(void)
+nanoka_case_t Layer_Array::get_all_route_case(void)
 {
     std::set<std::vector<nanoka_storage_t>> all_case;
     // 深拷贝
@@ -89,6 +90,7 @@ std::set<std::vector<nanoka_storage_t>> Layer_Array::get_all_route_case(void)
 
         nanoka_storage_t data = temp_cube.at(0);
         temp_cube.emplace_back(data);
+        temp_cube.erase(temp_cube.begin(), temp_cube.begin() + 1);
     }
 
     return all_case;
@@ -125,10 +127,8 @@ nanoka_status_t Layer_Array::valid(nanoka_num_t start_color)
         if (data_len <= 0 || storage.size() == 0)
             throw std::runtime_error("Vector storage is empty!");
 
-        storage.at(0) = start_color;
-        storage.at(1) = start_color + 1;
-        storage.at(3) = start_color + 2;
-        storage.at(2) = start_color + 3;
+        for (nanoka_num_t i = 0; i < data_len; ++i)
+            storage.at(i) = start_color + i;
 
         return NANOKA_SUCCESS;
     }

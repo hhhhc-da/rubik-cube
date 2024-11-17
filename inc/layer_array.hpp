@@ -36,7 +36,7 @@ public:
     void print_storage(void) const;
 
     // 获取所有旋转后的情况结果
-    std::set<std::vector<nanoka_storage_t>> get_all_route_case(void);
+    nanoka_case_t get_all_route_case(void);
 
     // 修改两个区块(0,1,2,3 分别表示修改 <1,2>,<2,3>,<3,4>,<4,1>)
     nanoka_status_t alter(nanoka_num_t pos, nanoka_num_t data1, nanoka_num_t data2);

@@ -1,8 +1,9 @@
 // 验证工具包头文件
 #include <valid.hpp>
 
-#define STORAGE_STATUS      0
-#define SPIN_STATUS         1
+#define VALID_LAYER_ARRAY_STORAGE_STATUS 0
+#define VALID_LAYER_ARRAY_SPIN_STATUS 0
+#define VALID_LAYER_ARRAY_SPIN_SET_STATUS 1
 
 // layer_array 验证区块函数
 void valid_layer_array(void)
@@ -14,7 +15,19 @@ void valid_layer_array(void)
     std::map<nanoka_num_t, const char *> pr = {
         {0, "<1,2>"}, {1, "<2,4>"}, {2, "<4,3>"}, {3, "<3,1>"}};
 
-#if STORAGE_STATUS
+#if VALID_LAYER_ARRAY_STORAGE_STATUS
+    x->valid(1);
+    x->print_storage();
+
+    // 测试获取元素 API
+    std::vector<nanoka_storage_t> sto = x->get_storage();
+    std::cout << "元素遍历: [";
+    for (auto s : sto)
+    {
+        std::cout << " " << static_cast<nanoka_num_t>(s) << std::flush;
+    }
+    std::cout << " ]" << std::endl;
+
     x->full(1);
     x->print_storage();
 
@@ -39,7 +52,7 @@ void valid_layer_array(void)
     }
 #endif
 
-#if SPIN_STATUS
+#if VALID_LAYER_ARRAY_SPIN_STATUS
     // 开始测试旋转 API
     x->valid(1);
     x->print_storage();
@@ -55,6 +68,23 @@ void valid_layer_array(void)
         std::cout << "逆时针旋转90度" << std::endl;
         x->route_90(true);
         x->print_storage();
+    }
+#endif
+
+#if VALID_LAYER_ARRAY_SPIN_SET_STATUS
+    // 开始集合计算 API
+    x->valid(1);
+    x->print_storage();
+
+    nanoka_case_t cases = x->get_all_route_case();
+    for (std::vector<nanoka_storage_t> case_m : cases)
+    {
+        std::cout << "集合遍历: [";
+        for (auto s : case_m)
+        {
+            std::cout << " " << static_cast<nanoka_num_t>(s) << std::flush;
+        }
+        std::cout << " ]" << std::endl;
     }
 #endif
 }

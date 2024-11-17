@@ -46,6 +46,8 @@
 typedef int nanoka_num_t;
 // 存储基准类型
 typedef uint8_t nanoka_storage_t;
+// 情况基准类型
+typedef std::set<std::vector<nanoka_storage_t>> nanoka_case_t;
 
 //////////////////////////////////////////////////////////////////////
 // 返回状态码重定义
