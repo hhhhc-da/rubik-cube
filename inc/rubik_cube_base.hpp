@@ -63,9 +63,9 @@ typedef int nanoka_move_enum_t;
 
 // 水平偏转
 #define NANOKA_MOVE_YAW 0
-// 前后翻滚
-#define NANOKA_MOVE_ROLL 1
 // 左右横滚
+#define NANOKA_MOVE_ROLL 1
+// 前后翻滚
 #define NANOKA_MOVE_PITCH 2
 
 // 操作数枚举类型

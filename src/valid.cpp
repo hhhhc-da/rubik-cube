@@ -66,17 +66,17 @@ void valid_cube_array(void)
 #if VALID_CUBE_ARRAY_SPIN_ROLL_STATUS
     // Y 轴旋转
     x->cube_reset();
-    std::cout << "\n对顶面顺时针旋转 90 度" << std::endl;
+    std::cout << "\n对前面顺时针旋转 90 度" << std::endl;
     x->cube_move(NANOKA_MOVE_YAW, MOVE_POS_90);
     x->cube_print();
 
     x->cube_reset();
-    std::cout << "\n对顶面旋转 180 度" << std::endl;
+    std::cout << "\n对前面旋转 180 度" << std::endl;
     x->cube_move(NANOKA_MOVE_YAW, MOVE_180);
     x->cube_print();
 
     x->cube_reset();
-    std::cout << "\n对顶面逆时针旋转 90 度" << std::endl;
+    std::cout << "\n对前面逆时针旋转 90 度" << std::endl;
     x->cube_move(NANOKA_MOVE_YAW, MOVE_NEG_90);
     x->cube_print();
 #endif
@@ -84,17 +84,17 @@ void valid_cube_array(void)
 #if VALID_CUBE_ARRAY_SPIN_PITCH_STATUS
     // X 轴旋转
     x->cube_reset();
-    std::cout << "\n对顶面顺时针旋转 90 度" << std::endl;
+    std::cout << "\n对左面顺时针旋转 90 度" << std::endl;
     x->cube_move(NANOKA_MOVE_YAW, MOVE_POS_90);
     x->cube_print();
 
     x->cube_reset();
-    std::cout << "\n对顶面旋转 180 度" << std::endl;
+    std::cout << "\n对左面旋转 180 度" << std::endl;
     x->cube_move(NANOKA_MOVE_YAW, MOVE_180);
     x->cube_print();
 
     x->cube_reset();
-    std::cout << "\n对顶面逆时针旋转 90 度" << std::endl;
+    std::cout << "\n对左面逆时针旋转 90 度" << std::endl;
     x->cube_move(NANOKA_MOVE_YAW, MOVE_NEG_90);
     x->cube_print();
 #endif
