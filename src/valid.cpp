@@ -15,7 +15,6 @@ void valid_layer_array(void)
         {0, "<1,2>"}, {1, "<2,4>"}, {2, "<4,3>"}, {3, "<3,1>"}};
 
 #if STORAGE_STATUS
-
     x->full(1);
     x->print_storage();
 
