@@ -30,7 +30,8 @@ nanoka_status_t Cube_Array::cube_init(void)
     return NANOKA_ERROR;
 }
 
-nanoka_status_t Cube_Array::cube_reset(void){
+nanoka_status_t Cube_Array::cube_reset(void)
+{
     // 重新初始化以实现复位 (幸亏用了智能指针)
     cube_init();
 }
@@ -97,6 +98,7 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
 
     try
     {
+        // 偏航角
         if (move_type == NANOKA_MOVE_YAW)
         {
             // 存储缓冲区
@@ -146,39 +148,109 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
             for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
                 cube_storage.at(desc[half_buffer.at(i)])->alter(0, buffer[(i + bias) % buffer.size()]);
         }
+        // 横滚角
         else if (move_type == NANOKA_MOVE_ROLL)
-        {
-            // 逆时针旋转 90 度
+        { // 存储缓冲区
+            std::vector<std::vector<nanoka_storage_t>> buffer;
+            // std::vector<std::pair<std::string, nanoka_num_t>> half_buffer = {{"Bottom",0}, {"Left",1}, {"Top",2}, {"Right":3}};
+            std::vector<std::string> half_buffer = {"Bottom", "Left", "Top", "Right"};
+
+            for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
+            {
+                // 这个函数不要乱改, 这个是计算过的结果
+                buffer.push_back(cube_storage.at(desc[half_buffer.at(i)])->read(i));
+                if (buffer[buffer.size() - 1].size() == 0)
+                    throw std::runtime_error("read data is empty.");
+            }
+
+            // 断言检测
+            if (buffer.empty())
+                throw std::runtime_error("read buffer is empty.");
+            if (buffer.size() != half_buffer.size())
+                throw std::runtime_error("buffer.size() != half_buffer.size().");
+
+            // bias 初始值为 0 表示状态不变, 状态应该改变
+            nanoka_num_t bias = 0;
+
+            // 顺时针旋转 90 度
             if (move_step == MOVE_POS_90)
             {
+                cube_storage.at(desc["Front"])->route_90(true);
+                bias = 1;
             }
             // 旋转 180 度
             else if (move_step == MOVE_180)
             {
+                // 旋转两次
+                for (nanoka_num_t i = 0; i < 2; ++i)
+                    cube_storage.at(desc["Front"])->route_90(true);
+                bias = 2;
             }
-            // 顺时针旋转 90 度
+            // 逆时针旋转 90 度
             else if (move_step == MOVE_NEG_90)
             {
+                cube_storage.at(desc["Front"])->route_90(false);
+                bias = 3;
             }
             else
                 throw std::runtime_error("nanoka_move_enum_t move_step invalid.");
+
+            // 顺时针旋转，应该把 Front 面的内容转移到 Left 面中, 也就是对向左移动一组元素
+            for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
+            {
+                nanoka_num_t p = (i + buffer.size() - bias) % buffer.size();
+                cube_storage.at(desc[half_buffer.at(i)])->alter(i, buffer[p]);
+            }
         }
+        // 俯仰角
         else if (move_type == NANOKA_MOVE_PITCH)
         {
-            // 逆时针旋转 90 度
+            // 存储缓冲区
+            std::vector<std::vector<nanoka_storage_t>> buffer;
+            std::vector<std::string> half_buffer = {"Left", "Front", "Right", "Back"};
+
+            for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
+            {
+                buffer.push_back(cube_storage.at(desc[half_buffer.at(i)])->read(0));
+                if (buffer[buffer.size() - 1].size() == 0)
+                    throw std::runtime_error("read data is empty.");
+            }
+
+            // 断言检测
+            if (buffer.empty())
+                throw std::runtime_error("read buffer is empty.");
+            if (buffer.size() != half_buffer.size())
+                throw std::runtime_error("buffer.size() != half_buffer.size().");
+
+            // bias 初始值为 0 表示状态不变, 状态应该改变
+            nanoka_num_t bias = 0;
+
+            // 顺时针旋转 90 度
             if (move_step == MOVE_POS_90)
             {
+                cube_storage.at(desc["Left"])->route_90(true);
+                bias = 1;
             }
             // 旋转 180 度
             else if (move_step == MOVE_180)
             {
+                // 旋转两次
+                for (nanoka_num_t i = 0; i < 2; ++i)
+                    cube_storage.at(desc["Left"])->route_90(true);
+                bias = 2;
             }
-            // 顺时针旋转 90 度
+            // 逆时针旋转 90 度
             else if (move_step == MOVE_NEG_90)
             {
+                cube_storage.at(desc["Left"])->route_90(false);
+                bias = 3;
             }
             else
                 throw std::runtime_error("nanoka_move_enum_t move_step invalid.");
+
+            // 顺时针旋转，应该把 Front 面的内容转移到 Left 面中, 也就是对向左移动一组元素
+            for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
+                cube_storage.at(desc[half_buffer.at(i)])->alter(0, buffer[(i + bias) % buffer.size()]);
         }
         else
             throw std::runtime_error("nanoka_move_t move_type invalid.");

@@ -77,35 +77,17 @@ void Layer_Array::print_storage(void) const
 }
 
 // 读取我感兴趣的部分
-std::vector<nanoka_storage_t> Layer_Array::read(nanoka_num_t pos){
+std::vector<nanoka_storage_t> Layer_Array::read(nanoka_num_t pos)
+{
     std::vector<nanoka_storage_t> ret;
-
     try
     {
         if (storage.size() != data_len)
             throw std::runtime_error("storage.size() != data_len.");
 
         // 修改顺序 <1,2>,<2,4>,<4,3>,<3,1>
-        switch(pos){
-            case 0:
-                ret.push_back(storage.at(0));
-                ret.push_back(storage.at(1));
-                break;
-            case 1:
-                ret.push_back(storage.at(1));
-                ret.push_back(storage.at(3));
-                break;
-            case 2:
-                ret.push_back(storage.at(3));
-                ret.push_back(storage.at(2));
-                break;
-            case 3:
-                ret.push_back(storage.at(2));
-                ret.push_back(storage.at(0));
-                break;
-            default:
-                throw std::runtime_error("(out of range) read pos invalid.");
-        }
+        for (nanoka_num_t i = 0; i < 2; ++i)
+            ret.push_back(storage.at((pos + i) % data_len));
     }
     catch (std::runtime_error e)
     {
@@ -190,8 +172,8 @@ nanoka_status_t Layer_Array::alter(nanoka_num_t pos, nanoka_num_t data)
 {
     try
     {
-        storage.at(pos % data_len) = data;
-        storage.at((pos + 1) % data_len) = data;
+        for (nanoka_num_t i = 0; i < 2; ++i)
+            storage.at((pos + i) % data_len) = data;
         return NANOKA_SUCCESS;
     }
     catch (std::runtime_error e)
@@ -234,8 +216,8 @@ nanoka_status_t Layer_Array::alter(nanoka_num_t pos, std::vector<nanoka_storage_
         {
             throw std::runtime_error("(Layer_Array::alter) Vector size is too small!");
         }
-        storage.at(pos % data_len) = data.at(0);
-        storage.at((pos + 1) % data_len) = data.at(1);
+        for (nanoka_num_t i = 0; i < 2; ++i)
+            storage.at((pos + i) % data_len) = data.at(i);
         return NANOKA_SUCCESS;
     }
     catch (std::runtime_error e)

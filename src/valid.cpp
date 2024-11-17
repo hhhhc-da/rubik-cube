@@ -3,9 +3,9 @@
 
 // layer_array 联合编译控制宏定义
 #define VALID_LAYER_ARRAY_FULL_DEBUG 0
-#define VALID_LAYER_ARRAY_STORAGE_STATUS 1
-#define VALID_LAYER_ARRAY_SPIN_STATUS 1
-#define VALID_LAYER_ARRAY_SPIN_SET_STATUS 1
+#define VALID_LAYER_ARRAY_STORAGE_STATUS 0
+#define VALID_LAYER_ARRAY_SPIN_STATUS 0
+#define VALID_LAYER_ARRAY_SPIN_SET_STATUS 0
 
 // cube_array 联合编译控制宏定义
 #define VALID_CUBE_ARRAY_FULL_DEBUG 0
@@ -17,7 +17,6 @@
 
 // rubik_cube 联合编译控制宏定义
 #define VALID_RUBIK_CUBE_FULL_DEBUG 0
-
 
 // // rubik_cube 验证区块函数
 // void valid_rubik_cube(void){
@@ -67,17 +66,17 @@ void valid_cube_array(void)
     // Y 轴旋转
     x->cube_reset();
     std::cout << "\n对前面顺时针旋转 90 度" << std::endl;
-    x->cube_move(NANOKA_MOVE_YAW, MOVE_POS_90);
+    x->cube_move(NANOKA_MOVE_ROLL, MOVE_POS_90);
     x->cube_print();
 
     x->cube_reset();
     std::cout << "\n对前面旋转 180 度" << std::endl;
-    x->cube_move(NANOKA_MOVE_YAW, MOVE_180);
+    x->cube_move(NANOKA_MOVE_ROLL, MOVE_180);
     x->cube_print();
 
     x->cube_reset();
     std::cout << "\n对前面逆时针旋转 90 度" << std::endl;
-    x->cube_move(NANOKA_MOVE_YAW, MOVE_NEG_90);
+    x->cube_move(NANOKA_MOVE_ROLL, MOVE_NEG_90);
     x->cube_print();
 #endif
 
@@ -85,22 +84,21 @@ void valid_cube_array(void)
     // X 轴旋转
     x->cube_reset();
     std::cout << "\n对左面顺时针旋转 90 度" << std::endl;
-    x->cube_move(NANOKA_MOVE_YAW, MOVE_POS_90);
+    x->cube_move(NANOKA_MOVE_PITCH, MOVE_POS_90);
     x->cube_print();
 
     x->cube_reset();
     std::cout << "\n对左面旋转 180 度" << std::endl;
-    x->cube_move(NANOKA_MOVE_YAW, MOVE_180);
+    x->cube_move(NANOKA_MOVE_PITCH, MOVE_180);
     x->cube_print();
 
     x->cube_reset();
     std::cout << "\n对左面逆时针旋转 90 度" << std::endl;
-    x->cube_move(NANOKA_MOVE_YAW, MOVE_NEG_90);
+    x->cube_move(NANOKA_MOVE_PITCH, MOVE_NEG_90);
     x->cube_print();
 #endif
 
 #endif
-
 }
 
 // layer_array 验证区块函数
@@ -118,12 +116,24 @@ void valid_layer_array(void)
 
     // 测试获取元素 API
     std::vector<nanoka_storage_t> sto = x->get_storage();
-    std::cout << "元素遍历: [";
+    std::cout << "元素遍历0: [";
     for (auto s : sto)
     {
         std::cout << " " << static_cast<nanoka_num_t>(s) << std::flush;
     }
     std::cout << " ]" << std::endl;
+
+    for (nanoka_num_t i = 0; i < 4; ++i)
+    {
+        auto storage_pos = x->read(i);
+
+        std::cout << "查询遍历" << i + 1 << ": [";
+        for (auto s : storage_pos)
+        {
+            std::cout << " " << static_cast<nanoka_num_t>(s) << std::flush;
+        }
+        std::cout << " ]" << std::endl;
+    }
 
     x->full(1);
     x->print_storage();
