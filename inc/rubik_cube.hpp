@@ -8,12 +8,14 @@ class Rubik_Cube
 {
 public:
     // 构造函数
-    Rubik_Cube(Rubik_Cube& x) {
+    Rubik_Cube(Rubik_Cube &x)
+    {
         cube_num = x.cube_num;
         layer_num = x.layer_num;
         cube_storage = x.cube_storage;
     }
-    Rubik_Cube(Rubik_Cube&& x) {
+    Rubik_Cube(Rubik_Cube &&x)
+    {
         cube_num = x.cube_num;
         layer_num = x.layer_num;
         cube_storage = x.cube_storage;
@@ -24,8 +26,6 @@ public:
     // 拷贝控制运算符
     Rubik_Cube &operator=(Rubik_Cube &x) = default;
     Rubik_Cube &operator=(Rubik_Cube &&x) = default;
-
-    
 
 private:
     // 魔方阶数

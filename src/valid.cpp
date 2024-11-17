@@ -1,8 +1,8 @@
 // 验证工具包头文件
 #include <valid.hpp>
 
-#define VALID_LAYER_ARRAY_STORAGE_STATUS 0
-#define VALID_LAYER_ARRAY_SPIN_STATUS 0
+#define VALID_LAYER_ARRAY_STORAGE_STATUS 1
+#define VALID_LAYER_ARRAY_SPIN_STATUS 1
 #define VALID_LAYER_ARRAY_SPIN_SET_STATUS 1
 
 // layer_array 验证区块函数

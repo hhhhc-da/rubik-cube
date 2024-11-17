@@ -19,10 +19,10 @@
 
 #include <exception>
 
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
-#include <cmath>
 
 #include <random>
 #include <unistd.h>
@@ -39,9 +39,9 @@
 
 //////////////////////////////////////////////////////////////////////
 // 二阶魔方
-#define NANOKA_CASE_NUM     2
+#define NANOKA_CASE_NUM 2
 // 普通的正方体魔方面数
-#define NANOKA_LAYER_NUM    6
+#define NANOKA_LAYER_NUM 6
 // 计数基准类型
 typedef int nanoka_num_t;
 // 存储基准类型
@@ -53,8 +53,8 @@ typedef std::set<std::vector<nanoka_storage_t>> nanoka_case_t;
 // 返回状态码重定义
 typedef int nanoka_status_t;
 
-#define NANOKA_SUCCESS      0
-#define NANOKA_ERROR        1
+#define NANOKA_SUCCESS 0
+#define NANOKA_ERROR 1
 
 //////////////////////////////////////////////////////////////////////
 // 操作方式重定义
@@ -62,17 +62,17 @@ typedef int nanoka_move_t;
 typedef int nanoka_move_enum_t;
 
 // 水平偏转
-#define NANOKA_MOVE_YAW     0
+#define NANOKA_MOVE_YAW 0
 // 前后翻滚
-#define NANOKA_MOVE_ROLL    1
+#define NANOKA_MOVE_ROLL 1
 // 左右横滚
-#define NANOKA_MOVE_PITCH   2
+#define NANOKA_MOVE_PITCH 2
 
 // 操作数枚举类型
-#define MOVE_POS_90         0
-#define MOVE_POS_180        1
-#define MOVE_NEG_180        1
-#define MOVE_NEG_90         2
+#define MOVE_POS_90 0
+#define MOVE_POS_180 1
+#define MOVE_NEG_180 1
+#define MOVE_NEG_90 2
 
 //////////////////////////////////////////////////////////////////////
 
