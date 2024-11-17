@@ -7,7 +7,6 @@
 #include <rubik_cube.hpp>
 #include <rubik_cube_base.hpp>
 
-// layer_array 验证区块函数
 void valid_layer_array(void);
 
 #endif
