@@ -8,6 +8,10 @@ class Rubik_Cube
 {
 public:
     // 构造函数
+    Rubik_Cube();
+    Rubik_Cube(nanoka_num_t cube, nanoka_num_t layer);
+
+    // 拷贝控制函数
     Rubik_Cube(Rubik_Cube &x)
     {
         cube_num = x.cube_num;

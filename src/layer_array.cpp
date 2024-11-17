@@ -76,6 +76,48 @@ void Layer_Array::print_storage(void) const
     }
 }
 
+// 读取我感兴趣的部分
+std::vector<nanoka_storage_t> Layer_Array::read(nanoka_num_t pos){
+    std::vector<nanoka_storage_t> ret;
+
+    try
+    {
+        if (storage.size() != data_len)
+            throw std::runtime_error("storage.size() != data_len.");
+
+        // 修改顺序 <1,2>,<2,4>,<4,3>,<3,1>
+        switch(pos){
+            case 0:
+                ret.push_back(storage.at(0));
+                ret.push_back(storage.at(1));
+                break;
+            case 1:
+                ret.push_back(storage.at(1));
+                ret.push_back(storage.at(3));
+                break;
+            case 2:
+                ret.push_back(storage.at(3));
+                ret.push_back(storage.at(2));
+                break;
+            case 3:
+                ret.push_back(storage.at(2));
+                ret.push_back(storage.at(0));
+                break;
+            default:
+                throw std::runtime_error("(out of range) read pos invalid.");
+        }
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(Layer_Array::print_storage) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(Layer_Array::print_storage) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    return ret;
+}
+
 // 获取所有旋转后的情况结果
 nanoka_case_t Layer_Array::get_all_route_case(void)
 {
@@ -184,7 +226,7 @@ nanoka_status_t Layer_Array::alter(nanoka_num_t pos, nanoka_num_t data1, nanoka_
 }
 
 // 修改两个区块(0,1,2,3 分别表示修改 <1,2>,<2,4>,<4,3>,<3,1>)
-nanoka_status_t Layer_Array::alter(nanoka_num_t pos, std::vector<nanoka_num_t> data)
+nanoka_status_t Layer_Array::alter(nanoka_num_t pos, std::vector<nanoka_storage_t> data)
 {
     try
     {

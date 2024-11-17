@@ -8,5 +8,7 @@
 #include <rubik_cube_base.hpp>
 
 void valid_layer_array(void);
+// void valid_rubik_cube(void);
+void valid_cube_array(void);
 
 #endif

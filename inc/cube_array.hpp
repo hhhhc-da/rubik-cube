@@ -4,6 +4,7 @@
 #include <layer_array.hpp>
 #include <rubik_cube_base.hpp>
 
+// 魔方数据结构存储体
 class Cube_Array
 {
 public:
@@ -13,12 +14,16 @@ public:
     Cube_Array(nanoka_num_t cube, nanoka_num_t layer);
     ~Cube_Array() = default;
 
-    // 魔方旋转函数
-    nanoka_status_t cube_move(nanoka_move_t move_type, nanoka_move_enum_t move_step);
     // 魔方初始化函数
     nanoka_status_t cube_init(void);
+    // 魔方恢复初始化
+    nanoka_status_t cube_reset(void);
     // 魔方填充函数 (使用 int 类型数据表示颜色)
     nanoka_status_t cube_full(nanoka_num_t layer, nanoka_num_t color);
+    // 魔方格式化输出函数
+    nanoka_status_t cube_print(void);
+    // 魔方旋转函数
+    nanoka_status_t cube_move(nanoka_move_t move_type, nanoka_move_enum_t move_step);
 
 private:
     // 魔方阶数

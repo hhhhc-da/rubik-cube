@@ -72,6 +72,7 @@ typedef int nanoka_move_enum_t;
 #define MOVE_POS_90 0
 #define MOVE_POS_180 1
 #define MOVE_NEG_180 1
+#define MOVE_180 1
 #define MOVE_NEG_90 2
 
 //////////////////////////////////////////////////////////////////////

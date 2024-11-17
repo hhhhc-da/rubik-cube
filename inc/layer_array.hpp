@@ -3,6 +3,7 @@
 
 #include <rubik_cube_base.hpp>
 
+// 魔方一个面的数据存储体
 class Layer_Array
 {
 public:
@@ -38,10 +39,13 @@ public:
     // 获取所有旋转后的情况结果
     nanoka_case_t get_all_route_case(void);
 
+    // 读取我感兴趣的部分
+    std::vector<nanoka_storage_t> read(nanoka_num_t pos);
+
     // 修改两个区块(0,1,2,3 分别表示修改 <1,2>,<2,3>,<3,4>,<4,1>)
     nanoka_status_t alter(nanoka_num_t pos, nanoka_num_t data1, nanoka_num_t data2);
     nanoka_status_t alter(nanoka_num_t pos, nanoka_num_t data);
-    nanoka_status_t alter(nanoka_num_t pos, std::vector<nanoka_num_t> data);
+    nanoka_status_t alter(nanoka_num_t pos, std::vector<nanoka_storage_t> data);
     // nanoka_status_t alter(nanoka_num_t pos, std::pair<nanoka_num_t, nanoka_num_t> data);
 
     // 填充四个区块
