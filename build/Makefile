@@ -152,6 +152,30 @@ src/cube_array.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/cube_array.cpp.s
 .PHONY : src/cube_array.cpp.s
 
+src/layer_array.obj: src/layer_array.cpp.obj
+.PHONY : src/layer_array.obj
+
+# target to build an object file
+src/layer_array.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/layer_array.cpp.obj
+.PHONY : src/layer_array.cpp.obj
+
+src/layer_array.i: src/layer_array.cpp.i
+.PHONY : src/layer_array.i
+
+# target to preprocess a source file
+src/layer_array.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/layer_array.cpp.i
+.PHONY : src/layer_array.cpp.i
+
+src/layer_array.s: src/layer_array.cpp.s
+.PHONY : src/layer_array.s
+
+# target to generate assembly for a file
+src/layer_array.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/layer_array.cpp.s
+.PHONY : src/layer_array.cpp.s
+
 src/main.obj: src/main.cpp.obj
 .PHONY : src/main.obj
 
@@ -200,6 +224,30 @@ src/rubik_cube.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/rubik_cube.cpp.s
 .PHONY : src/rubik_cube.cpp.s
 
+src/valid.obj: src/valid.cpp.obj
+.PHONY : src/valid.obj
+
+# target to build an object file
+src/valid.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/valid.cpp.obj
+.PHONY : src/valid.cpp.obj
+
+src/valid.i: src/valid.cpp.i
+.PHONY : src/valid.i
+
+# target to preprocess a source file
+src/valid.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/valid.cpp.i
+.PHONY : src/valid.cpp.i
+
+src/valid.s: src/valid.cpp.s
+.PHONY : src/valid.s
+
+# target to generate assembly for a file
+src/valid.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/valid.cpp.s
+.PHONY : src/valid.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -212,12 +260,18 @@ help:
 	@echo ... src/cube_array.obj
 	@echo ... src/cube_array.i
 	@echo ... src/cube_array.s
+	@echo ... src/layer_array.obj
+	@echo ... src/layer_array.i
+	@echo ... src/layer_array.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
 	@echo ... src/rubik_cube.obj
 	@echo ... src/rubik_cube.i
 	@echo ... src/rubik_cube.s
+	@echo ... src/valid.obj
+	@echo ... src/valid.i
+	@echo ... src/valid.s
 .PHONY : help
 
 

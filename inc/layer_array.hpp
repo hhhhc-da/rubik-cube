@@ -32,6 +32,8 @@ public:
 
     // 获取当前的面结果 (不允许外部修改)
     std::vector<nanoka_storage_t> get_storage(void) const;
+    // 格式化输出
+    void print_storage(void) const;
 
     // 获取所有旋转后的情况结果
     std::set<std::vector<nanoka_storage_t>> get_all_route_case(void);
@@ -40,10 +42,12 @@ public:
     nanoka_status_t alter(nanoka_num_t pos, nanoka_num_t data1, nanoka_num_t data2);
     nanoka_status_t alter(nanoka_num_t pos, nanoka_num_t data);
     nanoka_status_t alter(nanoka_num_t pos, std::vector<nanoka_num_t> data);
-    nanoka_status_t alter(nanoka_num_t pos, std::pair<nanoka_num_t, nanoka_num_t> data);
+    // nanoka_status_t alter(nanoka_num_t pos, std::pair<nanoka_num_t, nanoka_num_t> data);
 
     // 填充四个区块
     nanoka_status_t full(nanoka_num_t color);
+    // 二阶魔方测试旋转用顺序填充区块函数
+    nanoka_status_t valid(nanoka_num_t start_color);
 
 private:
     nanoka_num_t data_len;

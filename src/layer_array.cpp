@@ -36,12 +36,51 @@ std::vector<nanoka_storage_t> Layer_Array::get_storage(void) const
     return storage;
 }
 
+void Layer_Array::print_storage(void) const
+{
+    // 拷贝一份后构造
+    try
+    {
+        nanoka_num_t a = sqrt(data_len);
+        if (a * a != data_len)
+            throw std::runtime_error("data_len cannot be divided.");
+
+        std::cout << "Print storage:" << std::endl;
+        // // 顺序存储的时候使用的输出函数
+        // for (nanoka_num_t i = 0; i < a; ++i)
+        // {
+        //     std::cout << "|" << std::flush;
+        //     for (nanoka_num_t j = 0; j < a; ++j)
+        //     {
+        //         std::cout << " "
+        //                   << static_cast<nanoka_num_t>(storage.at(a * i + j));
+        //     }
+        //     std::cout << " |\n";
+        // }
+
+        // 顺时针存储时使用的特殊函数
+        std::cout << "| " << static_cast<nanoka_num_t>(storage.at(0))
+                  << " " << static_cast<nanoka_num_t>(storage.at(1)) << " |\n"
+                  << "| " << static_cast<nanoka_num_t>(storage.at(3))
+                  << " " << static_cast<nanoka_num_t>(storage.at(2)) << " |\n"
+                  << std::flush;
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(Layer_Array::print_storage) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(Layer_Array::print_storage) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+}
+
 // 获取所有旋转后的情况结果
 std::set<std::vector<nanoka_storage_t>> Layer_Array::get_all_route_case(void)
 {
     std::set<std::vector<nanoka_storage_t>> all_case;
     // 深拷贝
-    std::vector temp_cube = storage;
+    std::vector<nanoka_storage_t> temp_cube = storage;
 
     for (nanoka_num_t i = 0; i < data_len; ++i)
     {
@@ -74,6 +113,32 @@ nanoka_status_t Layer_Array::full(nanoka_num_t color)
     catch (...)
     {
         std::cerr << "(Layer_Array::full) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    return NANOKA_ERROR;
+}
+
+// 测试旋转用顺序填充区块函数
+nanoka_status_t Layer_Array::valid(nanoka_num_t start_color)
+{
+    try
+    {
+        if (data_len <= 0 || storage.size() == 0)
+            throw std::runtime_error("Vector storage is empty!");
+
+        storage.at(0) = start_color;
+        storage.at(1) = start_color + 1;
+        storage.at(3) = start_color + 2;
+        storage.at(2) = start_color + 3;
+
+        return NANOKA_SUCCESS;
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(Layer_Array::valid) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(Layer_Array::valid) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
 }
@@ -142,22 +207,22 @@ nanoka_status_t Layer_Array::alter(nanoka_num_t pos, std::vector<nanoka_num_t> d
     return NANOKA_ERROR;
 }
 
-// 修改两个区块(0,1,2,3 分别表示修改 <1,2>,<2,4>,<4,3>,<3,1>)
-nanoka_status_t Layer_Array::alter(nanoka_num_t pos, std::pair<nanoka_num_t, nanoka_num_t> data)
-{
-    try
-    {
-        storage.at(pos % data_len) = data.first;
-        storage.at((pos + 1) % data_len) = data.second;
-        return NANOKA_SUCCESS;
-    }
-    catch (std::runtime_error e)
-    {
-        std::cerr << "(Layer_Array::alter) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
-    }
-    catch (...)
-    {
-        std::cerr << "(Layer_Array::alter) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
-    }
-    return NANOKA_ERROR;
-}
+// // 修改两个区块(0,1,2,3 分别表示修改 <1,2>,<2,4>,<4,3>,<3,1>), 这个有歧义所以去掉了 (但是仍然保留备用)
+// nanoka_status_t Layer_Array::alter(nanoka_num_t pos, std::pair<nanoka_num_t, nanoka_num_t> data)
+// {
+//     try
+//     {
+//         storage.at(pos % data_len) = data.first;
+//         storage.at((pos + 1) % data_len) = data.second;
+//         return NANOKA_SUCCESS;
+//     }
+//     catch (std::runtime_error e)
+//     {
+//         std::cerr << "(Layer_Array::alter) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+//     }
+//     catch (...)
+//     {
+//         std::cerr << "(Layer_Array::alter) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+//     }
+//     return NANOKA_ERROR;
+// }

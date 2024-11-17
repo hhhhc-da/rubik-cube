@@ -8,12 +8,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 14)
 
 include_directories("inc")
-
-set(SOURCES
-    "src/main.cpp"
-    "src/cube_array.cpp"
-    "src/rubik_cube.cpp"
-)
+file(GLOB SOURCES "src/*.c" "src/*.cpp")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 

@@ -54,17 +54,17 @@ nanoka_status_t Cube_Array::cube_full(nanoka_num_t layer, nanoka_num_t color)
 // 魔方旋转函数
 nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_t move_step)
 {
-    // switch (move_type)
-    // {
-    // case NANOKA_MOVE_YAW:
-    //     break;
-    // case NANOKA_MOVE_ROLL:
-    //     break;
-    // case NANOKA_MOVE_PITCH:
-    //     break;
-    // default:
-    //     throw std::runtime_error("nanoka_move_t move_type invalid.");
-    // }
+    switch (move_type)
+    {
+    case NANOKA_MOVE_YAW:
+        break;
+    case NANOKA_MOVE_ROLL:
+        break;
+    case NANOKA_MOVE_PITCH:
+        break;
+    default:
+        throw std::runtime_error("nanoka_move_t move_type invalid.");
+    }
 }
 
 // 默认构造函数

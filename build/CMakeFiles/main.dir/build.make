@@ -68,26 +68,11 @@ include CMakeFiles/main.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/main.dir/flags.make
 
-CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/flags.make
-CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
-CMakeFiles/main.dir/src/main.cpp.obj: D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/main.cpp
-CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/main.cpp.obj"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/main.cpp.obj -MF CMakeFiles\main.dir\src\main.cpp.obj.d -o CMakeFiles\main.dir\src\main.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp
-
-CMakeFiles/main.dir/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/main.cpp.i"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp > CMakeFiles\main.dir\src\main.cpp.i
-
-CMakeFiles/main.dir/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/main.cpp.s"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp -o CMakeFiles\main.dir\src\main.cpp.s
-
 CMakeFiles/main.dir/src/cube_array.cpp.obj: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/cube_array.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
 CMakeFiles/main.dir/src/cube_array.cpp.obj: D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/cube_array.cpp
 CMakeFiles/main.dir/src/cube_array.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/cube_array.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/cube_array.cpp.obj"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/cube_array.cpp.obj -MF CMakeFiles\main.dir\src\cube_array.cpp.obj.d -o CMakeFiles\main.dir\src\cube_array.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\cube_array.cpp
 
 CMakeFiles/main.dir/src/cube_array.cpp.i: cmake_force
@@ -98,11 +83,41 @@ CMakeFiles/main.dir/src/cube_array.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/cube_array.cpp.s"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\cube_array.cpp -o CMakeFiles\main.dir\src\cube_array.cpp.s
 
+CMakeFiles/main.dir/src/layer_array.cpp.obj: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/layer_array.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
+CMakeFiles/main.dir/src/layer_array.cpp.obj: D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/layer_array.cpp
+CMakeFiles/main.dir/src/layer_array.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/layer_array.cpp.obj"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/layer_array.cpp.obj -MF CMakeFiles\main.dir\src\layer_array.cpp.obj.d -o CMakeFiles\main.dir\src\layer_array.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\layer_array.cpp
+
+CMakeFiles/main.dir/src/layer_array.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/layer_array.cpp.i"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\layer_array.cpp > CMakeFiles\main.dir\src\layer_array.cpp.i
+
+CMakeFiles/main.dir/src/layer_array.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/layer_array.cpp.s"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\layer_array.cpp -o CMakeFiles\main.dir\src\layer_array.cpp.s
+
+CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
+CMakeFiles/main.dir/src/main.cpp.obj: D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/main.cpp
+CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/main.cpp.obj"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/main.cpp.obj -MF CMakeFiles\main.dir\src\main.cpp.obj.d -o CMakeFiles\main.dir\src\main.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp
+
+CMakeFiles/main.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/main.cpp.i"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp > CMakeFiles\main.dir\src\main.cpp.i
+
+CMakeFiles/main.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/main.cpp.s"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\main.cpp -o CMakeFiles\main.dir\src\main.cpp.s
+
 CMakeFiles/main.dir/src/rubik_cube.cpp.obj: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/rubik_cube.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
 CMakeFiles/main.dir/src/rubik_cube.cpp.obj: D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/rubik_cube.cpp
 CMakeFiles/main.dir/src/rubik_cube.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/rubik_cube.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/src/rubik_cube.cpp.obj"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/rubik_cube.cpp.obj -MF CMakeFiles\main.dir\src\rubik_cube.cpp.obj.d -o CMakeFiles\main.dir\src\rubik_cube.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\rubik_cube.cpp
 
 CMakeFiles/main.dir/src/rubik_cube.cpp.i: cmake_force
@@ -113,23 +128,42 @@ CMakeFiles/main.dir/src/rubik_cube.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/rubik_cube.cpp.s"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\rubik_cube.cpp -o CMakeFiles\main.dir\src\rubik_cube.cpp.s
 
+CMakeFiles/main.dir/src/valid.cpp.obj: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/valid.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
+CMakeFiles/main.dir/src/valid.cpp.obj: D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/valid.cpp
+CMakeFiles/main.dir/src/valid.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/src/valid.cpp.obj"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/valid.cpp.obj -MF CMakeFiles\main.dir\src\valid.cpp.obj.d -o CMakeFiles\main.dir\src\valid.cpp.obj -c D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\valid.cpp
+
+CMakeFiles/main.dir/src/valid.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/valid.cpp.i"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\valid.cpp > CMakeFiles\main.dir\src\valid.cpp.i
+
+CMakeFiles/main.dir/src/valid.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/valid.cpp.s"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\src\valid.cpp -o CMakeFiles\main.dir\src\valid.cpp.s
+
 # Object files for target main
 main_OBJECTS = \
-"CMakeFiles/main.dir/src/main.cpp.obj" \
 "CMakeFiles/main.dir/src/cube_array.cpp.obj" \
-"CMakeFiles/main.dir/src/rubik_cube.cpp.obj"
+"CMakeFiles/main.dir/src/layer_array.cpp.obj" \
+"CMakeFiles/main.dir/src/main.cpp.obj" \
+"CMakeFiles/main.dir/src/rubik_cube.cpp.obj" \
+"CMakeFiles/main.dir/src/valid.cpp.obj"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
 
-bin/main.exe: CMakeFiles/main.dir/src/main.cpp.obj
 bin/main.exe: CMakeFiles/main.dir/src/cube_array.cpp.obj
+bin/main.exe: CMakeFiles/main.dir/src/layer_array.cpp.obj
+bin/main.exe: CMakeFiles/main.dir/src/main.cpp.obj
 bin/main.exe: CMakeFiles/main.dir/src/rubik_cube.cpp.obj
+bin/main.exe: CMakeFiles/main.dir/src/valid.cpp.obj
 bin/main.exe: CMakeFiles/main.dir/build.make
 bin/main.exe: CMakeFiles/main.dir/linkLibs.rsp
 bin/main.exe: CMakeFiles/main.dir/objects1.rsp
 bin/main.exe: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable bin\main.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\pandownload1\Desktop\CodingFolder\C++\Rubik_cube\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable bin\main.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\main.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

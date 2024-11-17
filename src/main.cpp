@@ -1,8 +1,11 @@
-#include <rubik_cube.hpp>
+#include <valid.hpp>
 
-using namespace std;
+int main(void)
+{
+    std::cout << "Hello rubik cube!\nAuthor: Nanoka." << std::endl;
 
-int main(void) {
-    cout << "Hello world!" << endl;
-    system("pause");
+    valid_layer_array();
+
+    // system("pause");
+    return 0;
 }
