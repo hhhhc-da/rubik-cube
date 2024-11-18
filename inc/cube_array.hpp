@@ -31,8 +31,8 @@ public:
     {
         return {cube_num, layer_num};
     }
-    // // 魔方表面个数统计函数
-    // nanoka_statistic_t cube_count(void);
+    // 魔方表面个数统计函数
+    nanoka_statistic_t cube_count(void);
 
 private:
     // 魔方阶数

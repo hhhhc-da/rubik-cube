@@ -302,13 +302,15 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
     return NANOKA_ERROR;
 }
 
-// // 魔方表面个数统计函数
-// nanoka_statistic_t Cube_Array::cube_count(void){
-//     nanoka_num_t statistic_num = 0;
+// 魔方表面个数统计函数
+nanoka_statistic_t Cube_Array::cube_count(void){
+    nanoka_num_t statistic_num = 0;
+    std::map<nanoka_num_t, nanoka_num_t> m;
 
-//     std::map<nanoka_num_t, nanoka_num_t> 
+    // 统计不同的情况, 首先要检测主键是否在 Map 内
 
-// }
+    return {statistic_num, m};
+}
 
 // 默认构造函数
 Cube_Array::Cube_Array() : cube_num(NANOKA_CASE_NUM), layer_num(NANOKA_LAYER_NUM)
