@@ -85,4 +85,11 @@ std::vector<nanoka_num_t> nanoka_get_keys(std::map<nanoka_num_t, nanoka_num_t>& 
 // 获取 Map 的值
 std::vector<nanoka_num_t> nanoka_get_values(std::map<nanoka_num_t, nanoka_num_t>& m);
 
+#define NANOKA_ANY 0 
+#define NANOKA_ALL 1
+
+// 快捷比较函数
+nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, nanoka_num_t value, nanoka_status_t mode);
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, nanoka_num_t value, nanoka_status_t mode);
+
 #endif

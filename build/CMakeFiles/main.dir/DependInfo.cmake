@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/cube_algorithm.cpp" "CMakeFiles/main.dir/src/cube_algorithm.cpp.obj" "gcc" "CMakeFiles/main.dir/src/cube_algorithm.cpp.obj.d"
   "D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/cube_array.cpp" "CMakeFiles/main.dir/src/cube_array.cpp.obj" "gcc" "CMakeFiles/main.dir/src/cube_array.cpp.obj.d"
   "D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/layer_array.cpp" "CMakeFiles/main.dir/src/layer_array.cpp.obj" "gcc" "CMakeFiles/main.dir/src/layer_array.cpp.obj.d"
   "D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/main.cpp" "CMakeFiles/main.dir/src/main.cpp.obj" "gcc" "CMakeFiles/main.dir/src/main.cpp.obj.d"

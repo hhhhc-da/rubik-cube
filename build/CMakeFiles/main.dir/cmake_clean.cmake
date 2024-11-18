@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/main.dir/src/cube_algorithm.cpp.obj"
+  "CMakeFiles/main.dir/src/cube_algorithm.cpp.obj.d"
   "CMakeFiles/main.dir/src/cube_array.cpp.obj"
   "CMakeFiles/main.dir/src/cube_array.cpp.obj.d"
   "CMakeFiles/main.dir/src/layer_array.cpp.obj"

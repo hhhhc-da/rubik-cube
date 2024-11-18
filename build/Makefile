@@ -128,6 +128,30 @@ main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+src/cube_algorithm.obj: src/cube_algorithm.cpp.obj
+.PHONY : src/cube_algorithm.obj
+
+# target to build an object file
+src/cube_algorithm.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/cube_algorithm.cpp.obj
+.PHONY : src/cube_algorithm.cpp.obj
+
+src/cube_algorithm.i: src/cube_algorithm.cpp.i
+.PHONY : src/cube_algorithm.i
+
+# target to preprocess a source file
+src/cube_algorithm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/cube_algorithm.cpp.i
+.PHONY : src/cube_algorithm.cpp.i
+
+src/cube_algorithm.s: src/cube_algorithm.cpp.s
+.PHONY : src/cube_algorithm.s
+
+# target to generate assembly for a file
+src/cube_algorithm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/cube_algorithm.cpp.s
+.PHONY : src/cube_algorithm.cpp.s
+
 src/cube_array.obj: src/cube_array.cpp.obj
 .PHONY : src/cube_array.obj
 
@@ -281,6 +305,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... main
+	@echo ... src/cube_algorithm.obj
+	@echo ... src/cube_algorithm.i
+	@echo ... src/cube_algorithm.s
 	@echo ... src/cube_array.obj
 	@echo ... src/cube_array.i
 	@echo ... src/cube_array.s

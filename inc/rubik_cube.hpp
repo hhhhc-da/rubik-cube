@@ -22,22 +22,26 @@ public:
     Rubik_Cube &operator=(Rubik_Cube &&x) = default;
 
     // 检测魔方是否可用
-    inline nanoka_status_t rubik_is_available(void)
-    {
-        // 检测魔方和内部存储的基本结构是否相同
-        std::pair<nanoka_num_t, nanoka_num_t> storage_info = rubik_storage->cube_info();
-        if (storage_info.first != rubik_cube_num || storage_info.second != rubik_layer_num)
-        {
-            std::cerr << "(Rubik_Cube::rubik_is_available) Infomation not valid." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
-            return NANOKA_ERROR;
-        }
-
-        // 检测魔方存储体是否符合正规魔方 (获取每个面的内容, 并且进行计数)
-    }
+    nanoka_status_t rubik_is_available(void);
     // 检测魔方是否是初始状态
-    nanoka_status_t rubik_is_initial_state(void);
-    // 魔方操作函数
-    nanoka_status_t rubik_ctrl();
+    nanoka_status_t rubik_done(void);
+    /* 魔方操作函数
+     *
+     * nanoka_move_t 类型成员:
+     * NANOKA_MOVE_YAW      : 调整魔方偏航角
+     * NANOKA_MOVE_ROLL     : 调整魔方横滚角
+     * NANOKA_MOVE_PITCH    : 调整魔方翻转角
+     *
+     * nanoka_move_enum_t 类型成员:
+     * MOVE_POS_90          : 顺时针旋转 90 度
+     * MOVE_POS_180         : 顺时针旋转 180 度
+     * MOVE_180             : 旋转 180 度
+     * MOVE_NEG_180         : 逆时针旋转 180 度
+     * MOVE_NEG_90          : 逆时针旋转 90 度
+     */
+    nanoka_status_t rubik_ctrl(nanoka_move_t move_type, nanoka_move_enum_t move_step);
+    // 魔方快速查看某个面函数
+    void rubik_check(std::string position);
 
 private:
     // 魔方阶数

@@ -322,7 +322,10 @@ nanoka_statistic_t Cube_Array::cube_count(void)
                 // 如果在里面没有找到相关内容, 那么我们就插入新数据
                 if (std::find_if(index_buffer.begin(), index_buffer.end(), [&](nanoka_num_t x)
                                  { return x == color; }) == index_buffer.end())
+                {
                     map_buffer[color] = 1;
+                    index_buffer.push_back(color);
+                }
                 else
                     map_buffer[color] += 1;
             }
@@ -330,7 +333,12 @@ nanoka_statistic_t Cube_Array::cube_count(void)
 
         // 最终要检验我们的个数是否相符
         if (map_buffer.size() != index_buffer.size() || index_buffer.size() != layer_num)
+        {
+            std::cout << "map_buffer.size() => " << map_buffer.size() << std::endl
+                      << "index_buffer.size() => " << index_buffer.size() << std::endl
+                      << "layer_num => " << layer_num << std::endl;
             throw std::runtime_error("map_buffer.size() != index_buffer.size() or index_buffer.size() != layer_num");
+        }
     }
     catch (std::runtime_error e)
     {
