@@ -26,12 +26,19 @@ public:
     nanoka_status_t cube_move(nanoka_move_t move_type, nanoka_move_enum_t move_step);
     // 魔方验证函数
     nanoka_status_t cube_valid(nanoka_num_t start_color);
+    // 魔方基本内容获取函数
+    inline std::pair<nanoka_num_t, nanoka_num_t> cube_info(void) const
+    {
+        return {cube_num, layer_num};
+    }
+    // // 魔方表面个数统计函数
+    // nanoka_statistic_t cube_count(void);
 
 private:
     // 魔方阶数
-    int cube_num;
+    nanoka_num_t cube_num;
     // 魔方平面数
-    int layer_num;
+    nanoka_num_t layer_num;
     // 魔方内容存储体 (使用 vector 存放数据结构体的智能指针) - 长度为 cube_num^2
     std::vector<std::shared_ptr<Layer_Array>> cube_storage;
 };

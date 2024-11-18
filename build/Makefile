@@ -224,6 +224,30 @@ src/rubik_cube.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/rubik_cube.cpp.s
 .PHONY : src/rubik_cube.cpp.s
 
+src/rubik_cube_base.obj: src/rubik_cube_base.cpp.obj
+.PHONY : src/rubik_cube_base.obj
+
+# target to build an object file
+src/rubik_cube_base.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/rubik_cube_base.cpp.obj
+.PHONY : src/rubik_cube_base.cpp.obj
+
+src/rubik_cube_base.i: src/rubik_cube_base.cpp.i
+.PHONY : src/rubik_cube_base.i
+
+# target to preprocess a source file
+src/rubik_cube_base.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/rubik_cube_base.cpp.i
+.PHONY : src/rubik_cube_base.cpp.i
+
+src/rubik_cube_base.s: src/rubik_cube_base.cpp.s
+.PHONY : src/rubik_cube_base.s
+
+# target to generate assembly for a file
+src/rubik_cube_base.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/rubik_cube_base.cpp.s
+.PHONY : src/rubik_cube_base.cpp.s
+
 src/valid.obj: src/valid.cpp.obj
 .PHONY : src/valid.obj
 
@@ -269,6 +293,9 @@ help:
 	@echo ... src/rubik_cube.obj
 	@echo ... src/rubik_cube.i
 	@echo ... src/rubik_cube.s
+	@echo ... src/rubik_cube_base.obj
+	@echo ... src/rubik_cube_base.i
+	@echo ... src/rubik_cube_base.s
 	@echo ... src/valid.obj
 	@echo ... src/valid.i
 	@echo ... src/valid.s

@@ -8,6 +8,7 @@
 #include <memory>
 #include <set>
 #include <utility>
+#include <iterator>
 
 #include <cstdlib>
 
@@ -48,6 +49,8 @@ typedef int nanoka_num_t;
 typedef uint8_t nanoka_storage_t;
 // 情况基准类型
 typedef std::set<std::vector<nanoka_storage_t>> nanoka_case_t;
+// 统计基准类型
+typedef std::pair<nanoka_num_t, std::map<nanoka_num_t, nanoka_num_t>> nanoka_statistic_t;
 
 //////////////////////////////////////////////////////////////////////
 // 返回状态码重定义
@@ -76,5 +79,10 @@ typedef int nanoka_move_enum_t;
 #define MOVE_NEG_90 2
 
 //////////////////////////////////////////////////////////////////////
+
+// 获取 Map 的主键
+std::vector<nanoka_num_t> nanoka_get_keys(std::map<nanoka_num_t, nanoka_num_t>& m);
+// 获取 Map 的值
+std::vector<nanoka_num_t> nanoka_get_values(std::map<nanoka_num_t, nanoka_num_t>& m);
 
 #endif

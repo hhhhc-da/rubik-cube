@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/main.cpp.obj.d"
   "CMakeFiles/main.dir/src/rubik_cube.cpp.obj"
   "CMakeFiles/main.dir/src/rubik_cube.cpp.obj.d"
+  "CMakeFiles/main.dir/src/rubik_cube_base.cpp.obj"
+  "CMakeFiles/main.dir/src/rubik_cube_base.cpp.obj.d"
   "CMakeFiles/main.dir/src/valid.cpp.obj"
   "CMakeFiles/main.dir/src/valid.cpp.obj.d"
   "bin/main.exe"

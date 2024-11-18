@@ -10,7 +10,7 @@ nanoka_status_t Cube_Array::cube_init(void)
             throw std::runtime_error("cube_storage.size() != layer_num");
 
         // 将每个平面的所有内容都覆盖
-        for (int i = 0; i < layer_num; ++i)
+        for (nanoka_num_t i = 0; i < layer_num; ++i)
         {
             nanoka_status_t ret = cube_full(i, i + 1);
 
@@ -68,7 +68,7 @@ nanoka_status_t Cube_Array::cube_valid(nanoka_num_t start_color)
             throw std::runtime_error("cube_storage.size() != layer_num");
 
         // 将每个平面的所有内容都覆盖
-        for (int i = 0; i < layer_num; ++i)
+        for (nanoka_num_t i = 0; i < layer_num; ++i)
         {
             nanoka_status_t ret = cube_storage.at(i)->valid(start_color + i);
 
@@ -101,7 +101,7 @@ nanoka_status_t Cube_Array::cube_print(void)
             {0, "Top"}, {1, "Left"}, {2, "Front"}, {3, "Right"}, {4, "Back"}, {5, "Bottom"}};
 
         // 将每个平面的所有内容都覆盖
-        for (int i = 0; i < layer_num; ++i)
+        for (nanoka_num_t i = 0; i < layer_num; ++i)
         {
             std::cout << "输出面为: [ " << pr[i] << " ]" << std::endl;
             cube_storage.at(i)->print_storage();
@@ -301,6 +301,14 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
     }
     return NANOKA_ERROR;
 }
+
+// // 魔方表面个数统计函数
+// nanoka_statistic_t Cube_Array::cube_count(void){
+//     nanoka_num_t statistic_num = 0;
+
+//     std::map<nanoka_num_t, nanoka_num_t> 
+
+// }
 
 // 默认构造函数
 Cube_Array::Cube_Array() : cube_num(NANOKA_CASE_NUM), layer_num(NANOKA_LAYER_NUM)

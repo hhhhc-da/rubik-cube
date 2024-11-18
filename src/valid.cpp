@@ -12,12 +12,16 @@
 #define VALID_CUBE_ARRAY_STORAGE_STATUS 0
 #define VALID_MODE 1
 #define COMMON_MODE 0
-#define VALID_CUBE_ARRAY_STORAGE_MODE VALID_MODE
+#define VALID_CUBE_ARRAY_STORAGE_MODE COMMON_MODE
 
 #define VALID_CUBE_ARRAY_SPIN_STATUS 1
 #define VALID_CUBE_ARRAY_SPIN_YAW_STATUS 0
 #define VALID_CUBE_ARRAY_SPIN_ROLL_STATUS 0
 #define VALID_CUBE_ARRAY_SPIN_PITCH_STATUS 1
+
+// rubik_cube_base 联合编译控制宏定义
+#define VALID_RUBIK_CUBE_BASE_FULL_DEBUG 0
+#define VALID_RUBIK_CUBE_BASE_MAP_FUNC_STATUS 1
 
 // rubik_cube 联合编译控制宏定义
 #define VALID_RUBIK_CUBE_FULL_DEBUG 0
@@ -29,6 +33,32 @@
 //     // auto x = std::make_shared<Layer_Array>(NANOKA_CASE_NUM * NANOKA_CASE_NUM);
 // }
 
+// cube_array_base 验证区块函数
+void valid_cube_array_base(void)
+{
+    std::map<nanoka_num_t, nanoka_num_t> m = {
+        {1, 67}, {2, 45}, {4, 21}, {3, 98}};
+
+    std::vector<nanoka_num_t> m_keys = nanoka_get_keys(m);
+
+    std::cout << "Keys: [ " << std::flush;
+    for (auto &x : m_keys)
+    {
+        std::cout << x << " ";
+    }
+    std::cout << "]" << std::endl;
+
+    std::vector<nanoka_num_t> m_values = nanoka_get_values(m);
+
+    std::cout << "Values: [ " << std::flush;
+    for (auto &x : m_values)
+    {
+        std::cout << x << " ";
+    }
+    std::cout << "]" << std::endl;
+}
+
+// 初始化模式选择函数
 void _valid_cube_array_reset(std::shared_ptr<Cube_Array> x, nanoka_num_t mode)
 {
     if (mode == COMMON_MODE)
