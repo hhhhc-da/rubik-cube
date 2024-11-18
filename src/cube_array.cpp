@@ -303,13 +303,47 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
 }
 
 // 魔方表面个数统计函数
-nanoka_statistic_t Cube_Array::cube_count(void){
-    nanoka_num_t statistic_num = 0;
-    std::map<nanoka_num_t, nanoka_num_t> m;
+nanoka_statistic_t Cube_Array::cube_count(void)
+{
+    // 我们最后的缓存结果值
+    std::map<nanoka_num_t, nanoka_num_t> map_buffer;
+    // 用来缓存已经记录进去的数据
+    std::vector<nanoka_num_t> index_buffer;
 
-    // 统计不同的情况, 首先要检测主键是否在 Map 内
+    try
+    {
+        // 统计不同的情况, 首先要检测主键是否在 Map 内
+        for (nanoka_num_t i = 0; i < layer_num; ++i)
+        {
+            std::vector<nanoka_storage_t> buf = cube_storage.at(i)->get_storage();
+            for (auto unit : buf)
+            {
+                nanoka_num_t color = static_cast<nanoka_num_t>(unit);
+                // 如果在里面没有找到相关内容, 那么我们就插入新数据
+                if (std::find_if(index_buffer.begin(), index_buffer.end(), [&](nanoka_num_t x)
+                                 { return x == color; }) == index_buffer.end())
+                    map_buffer[color] = 1;
+                else
+                    map_buffer[color] += 1;
+            }
+        }
 
-    return {statistic_num, m};
+        // 最终要检验我们的个数是否相符
+        if (map_buffer.size() != index_buffer.size() || index_buffer.size() != layer_num)
+            throw std::runtime_error("map_buffer.size() != index_buffer.size() or index_buffer.size() != layer_num");
+    }
+    catch (std::runtime_error e)
+    {
+        index_buffer.clear();
+        std::cerr << "(Cube_Array::cube_count) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        index_buffer.clear();
+        std::cerr << "(Cube_Array::cube_count) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+
+    return {index_buffer.size(), map_buffer};
 }
 
 // 默认构造函数

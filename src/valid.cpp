@@ -1,6 +1,9 @@
 // 验证工具包头文件
 #include <valid.hpp>
 
+#define VALID_MODE 1
+#define COMMON_MODE 0
+
 // layer_array 联合编译控制宏定义
 #define VALID_LAYER_ARRAY_FULL_DEBUG 0
 #define VALID_LAYER_ARRAY_STORAGE_STATUS 0
@@ -10,14 +13,14 @@
 // cube_array 联合编译控制宏定义
 #define VALID_CUBE_ARRAY_FULL_DEBUG 0
 #define VALID_CUBE_ARRAY_STORAGE_STATUS 0
-#define VALID_MODE 1
-#define COMMON_MODE 0
 #define VALID_CUBE_ARRAY_STORAGE_MODE COMMON_MODE
 
-#define VALID_CUBE_ARRAY_SPIN_STATUS 1
+#define VALID_CUBE_ARRAY_SPIN_STATUS 0
 #define VALID_CUBE_ARRAY_SPIN_YAW_STATUS 0
 #define VALID_CUBE_ARRAY_SPIN_ROLL_STATUS 0
 #define VALID_CUBE_ARRAY_SPIN_PITCH_STATUS 1
+
+#define VALID_CUBE_ARRAY_STATISTIC_STATUS 1
 
 // rubik_cube_base 联合编译控制宏定义
 #define VALID_RUBIK_CUBE_BASE_FULL_DEBUG 0
@@ -77,6 +80,29 @@ void valid_cube_array(void)
     auto x = std::make_shared<Cube_Array>(NANOKA_CASE_NUM, NANOKA_LAYER_NUM);
     _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
     x->cube_print();
+
+#if VALID_CUBE_ARRAY_STATISTIC_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
+    nanoka_statistic_t count = x->cube_count();
+
+    std::cout << "统计后的面数为: " << count.first << std::endl;
+    std::vector<nanoka_num_t> m_keys = nanoka_get_keys(count.second);
+
+    std::cout << "Keys: [ " << std::flush;
+    for (auto &x : m_keys)
+    {
+        std::cout << x << " ";
+    }
+    std::cout << "]" << std::endl;
+
+    std::vector<nanoka_num_t> m_values = nanoka_get_values(count.second);
+
+    std::cout << "Values: [ " << std::flush;
+    for (auto &x : m_values)
+    {
+        std::cout << x << " ";
+    }
+    std::cout << "]" << std::endl;
+#endif
 
 #if VALID_CUBE_ARRAY_STORAGE_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
     std::vector<nanoka_num_t> vec = {2, 8, 3, 5, 4, 7};
