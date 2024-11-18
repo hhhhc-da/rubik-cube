@@ -1,6 +1,6 @@
 #include <rubik_cube_base.hpp>
 
-// 获取 Map 的主键
+// Map key
 std::vector<nanoka_num_t> nanoka_get_keys(std::map<nanoka_num_t, nanoka_num_t>& m)
 {
     std::vector<nanoka_num_t> keys;
@@ -12,7 +12,7 @@ std::vector<nanoka_num_t> nanoka_get_keys(std::map<nanoka_num_t, nanoka_num_t>& 
     return keys;
 }
 
-// 获取 Map 的值
+// Map value
 std::vector<nanoka_num_t> nanoka_get_values(std::map<nanoka_num_t, nanoka_num_t>& m)
 {
     std::vector<nanoka_num_t> values;
