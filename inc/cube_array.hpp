@@ -24,6 +24,8 @@ public:
     nanoka_status_t cube_print(void);
     // 魔方旋转函数
     nanoka_status_t cube_move(nanoka_move_t move_type, nanoka_move_enum_t move_step);
+    // 魔方验证函数
+    nanoka_status_t cube_valid(nanoka_num_t start_color);
 
 private:
     // 魔方阶数

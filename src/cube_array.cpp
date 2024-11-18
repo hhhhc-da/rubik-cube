@@ -58,6 +58,36 @@ nanoka_status_t Cube_Array::cube_full(nanoka_num_t layer, nanoka_num_t color)
     return NANOKA_ERROR;
 }
 
+// 魔方验证函数
+nanoka_status_t Cube_Array::cube_valid(nanoka_num_t start_color)
+{
+    try
+    {
+        // 个数校验
+        if (cube_storage.size() != layer_num)
+            throw std::runtime_error("cube_storage.size() != layer_num");
+
+        // 将每个平面的所有内容都覆盖
+        for (int i = 0; i < layer_num; ++i)
+        {
+            nanoka_status_t ret = cube_storage.at(i)->valid(start_color + i);
+
+            if (ret != NANOKA_SUCCESS)
+                throw std::runtime_error("cube_storage.at(layer)->full(color) failed.");
+        }
+        return NANOKA_SUCCESS;
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(Cube_Array::cube_valid) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(Cube_Array::cube_valid) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    return NANOKA_ERROR;
+}
+
 // 魔方格式化输出函数
 nanoka_status_t Cube_Array::cube_print(void)
 {
@@ -124,7 +154,7 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
             // 顺时针旋转 90 度
             if (move_step == MOVE_POS_90)
             {
-                cube_storage.at(desc["Top"])->route_90(true);
+                cube_storage.at(desc["Top"])->route_90(false);
                 bias = 1;
             }
             // 旋转 180 度
@@ -132,13 +162,13 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
             {
                 // 旋转两次
                 for (nanoka_num_t i = 0; i < 2; ++i)
-                    cube_storage.at(desc["Top"])->route_90(true);
+                    cube_storage.at(desc["Top"])->route_90(false);
                 bias = 2;
             }
             // 逆时针旋转 90 度
             else if (move_step == MOVE_NEG_90)
             {
-                cube_storage.at(desc["Top"])->route_90(false);
+                cube_storage.at(desc["Top"])->route_90(true);
                 bias = 3;
             }
             else
@@ -175,7 +205,7 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
             // 顺时针旋转 90 度
             if (move_step == MOVE_POS_90)
             {
-                cube_storage.at(desc["Front"])->route_90(true);
+                cube_storage.at(desc["Front"])->route_90(false);
                 bias = 1;
             }
             // 旋转 180 度
@@ -183,13 +213,13 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
             {
                 // 旋转两次
                 for (nanoka_num_t i = 0; i < 2; ++i)
-                    cube_storage.at(desc["Front"])->route_90(true);
+                    cube_storage.at(desc["Front"])->route_90(false);
                 bias = 2;
             }
             // 逆时针旋转 90 度
             else if (move_step == MOVE_NEG_90)
             {
-                cube_storage.at(desc["Front"])->route_90(false);
+                cube_storage.at(desc["Front"])->route_90(true);
                 bias = 3;
             }
             else
@@ -207,11 +237,12 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
         {
             // 存储缓冲区
             std::vector<std::vector<nanoka_storage_t>> buffer;
-            std::vector<std::string> half_buffer = {"Left", "Front", "Right", "Back"};
+            std::vector<std::pair<std::string, nanoka_num_t>> half_buffer = {
+                {"Bottom", 3}, {"Back", 1}, {"Top", 3}, {"Front", 3}};
 
             for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
             {
-                buffer.push_back(cube_storage.at(desc[half_buffer.at(i)])->read(0));
+                buffer.push_back(cube_storage.at(desc[half_buffer.at(i).first])->read(half_buffer.at(i).second));
                 if (buffer[buffer.size() - 1].size() == 0)
                     throw std::runtime_error("read data is empty.");
             }
@@ -228,7 +259,7 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
             // 顺时针旋转 90 度
             if (move_step == MOVE_POS_90)
             {
-                cube_storage.at(desc["Left"])->route_90(true);
+                cube_storage.at(desc["Left"])->route_90(false);
                 bias = 1;
             }
             // 旋转 180 度
@@ -236,13 +267,13 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
             {
                 // 旋转两次
                 for (nanoka_num_t i = 0; i < 2; ++i)
-                    cube_storage.at(desc["Left"])->route_90(true);
+                    cube_storage.at(desc["Left"])->route_90(false);
                 bias = 2;
             }
             // 逆时针旋转 90 度
             else if (move_step == MOVE_NEG_90)
             {
-                cube_storage.at(desc["Left"])->route_90(false);
+                cube_storage.at(desc["Left"])->route_90(true);
                 bias = 3;
             }
             else
@@ -250,7 +281,10 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
 
             // 顺时针旋转，应该把 Front 面的内容转移到 Left 面中, 也就是对向左移动一组元素
             for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
-                cube_storage.at(desc[half_buffer.at(i)])->alter(0, buffer[(i + bias) % buffer.size()]);
+            {
+                nanoka_num_t p = (i + buffer.size() - bias) % buffer.size();
+                cube_storage.at(desc[half_buffer.at(i).first])->alter(half_buffer.at(i).second, buffer[p]);
+            }
         }
         else
             throw std::runtime_error("nanoka_move_t move_type invalid.");
