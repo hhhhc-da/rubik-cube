@@ -24,7 +24,8 @@
 
 // rubik_cube 联合编译控制宏定义
 #define VALID_RUBIK_CUBE_FULL_DEBUG 0
-#define VALID_RUBIK_CUBE_DONE_STATUS 1
+#define VALID_RUBIK_CUBE_DONE_STATUS 0
+#define VALID_RUBIK_CUBE_RANDOM_STATUS 1
 
 // rubik_cube 验证区块函数
 void valid_rubik_cube(void){
@@ -47,6 +48,11 @@ void valid_rubik_cube(void){
         x->rubik_check("Left");
     }
 #endif
+
+#if VALID_RUBIK_CUBE_RANDOM_STATUS || VALID_RUBIK_CUBE_FULL_DEBUG
+    x->rubik_random_state_generator(5);
+#endif
+
 }
 
 // 初始化模式选择函数

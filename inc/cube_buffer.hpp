@@ -10,8 +10,8 @@ class Cube_Buffer
 public:
     Cube_Buffer() {}
 
-    // private:
-    //     std::vector<cube_status_t> storage;
+private:
+    std::set<>
 };
 
 #endif

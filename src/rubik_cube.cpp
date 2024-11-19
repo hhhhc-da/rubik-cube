@@ -1,5 +1,49 @@
 #include <rubik_cube.hpp>
 
+// 魔方随机旋转函数
+nanoka_status_t Rubik_Cube::rubik_random_state_generator(nanoka_num_t depth)
+{
+    // 首先我们让魔方复位
+    rubik_reset();
+
+    // 动作随机数缓存
+    std::vector<nanoka_num_t> random_cache;
+    std::map<nanoka_num_t, const char *> action = {
+        {0, "YAW"}, {1, "ROLL"}, {2, "PITCH"}};
+    std::map<nanoka_num_t, const char *> op = {
+        {0, "+90"}, {1, "180"}, {2, "-90"}};
+
+    try
+    {
+        for (nanoka_num_t j = 0; j < depth; ++j)
+        {
+            for (nanoka_num_t i = 0; i < 2; ++i)
+            {
+                random_cache.push_back(rubik_random_generator());
+            }
+
+            std::cout << "第" << j + 1 << "次旋转魔方 ( " << action[random_cache.at(0)]
+                      << " " << op[random_cache.at(1)] << " )" << std::endl;
+            rubik_ctrl(random_cache.at(0), random_cache.at(1));
+
+            // 清理临时缓存
+            random_cache.clear();
+        }
+
+        rubik_print();
+        return NANOKA_SUCCESS;
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(Rubik_Cube::rubik_check) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(Rubik_Cube::rubik_check) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    return NANOKA_ERROR;
+}
+
 // 魔方快速查看某个面函数
 void Rubik_Cube::rubik_check(std::string position)
 {

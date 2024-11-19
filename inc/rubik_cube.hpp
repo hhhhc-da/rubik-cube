@@ -9,8 +9,8 @@ class Rubik_Cube
 {
 public:
     // 构造函数
-    Rubik_Cube() : rubik_cube_num(NANOKA_CASE_NUM), rubik_layer_num(NANOKA_LAYER_NUM), rubik_storage(std::make_shared<Cube_Array>(NANOKA_CASE_NUM, NANOKA_LAYER_NUM)) {}
-    Rubik_Cube(nanoka_num_t cube, nanoka_num_t layer) : rubik_cube_num(cube), rubik_layer_num(layer), rubik_storage(std::make_shared<Cube_Array>(cube, layer)) {}
+    Rubik_Cube() : rubik_cube_num(NANOKA_CASE_NUM), rubik_layer_num(NANOKA_LAYER_NUM), rubik_storage(std::make_shared<Cube_Array>(NANOKA_CASE_NUM, NANOKA_LAYER_NUM)), gen(rd()), dis(0, 2) {}
+    Rubik_Cube(nanoka_num_t cube, nanoka_num_t layer) : rubik_cube_num(cube), rubik_layer_num(layer), rubik_storage(std::make_shared<Cube_Array>(cube, layer)), gen(rd()), dis(0, 2) {}
 
     // 拷贝控制函数
     Rubik_Cube(Rubik_Cube &x) = default;
@@ -42,6 +42,24 @@ public:
     nanoka_status_t rubik_ctrl(nanoka_move_t move_type, nanoka_move_enum_t move_step);
     // 魔方快速查看某个面函数
     void rubik_check(std::string position);
+    // 魔方随机旋转函数
+    nanoka_status_t rubik_random_state_generator(nanoka_num_t depth);
+
+    // 魔方查看所有面函数
+    nanoka_status_t rubik_print(void)
+    {
+        rubik_storage->cube_print();
+    }
+    // 魔方复原函数
+    nanoka_status_t rubik_reset(void)
+    {
+        return rubik_storage->cube_reset();
+    }
+    // 魔方随机数生成函数
+    nanoka_num_t rubik_random_generator(void)
+    {
+        return dis(gen);
+    }
 
 private:
     // 魔方阶数
@@ -50,6 +68,10 @@ private:
     nanoka_num_t rubik_layer_num;
     // 魔方内容存储体
     std::shared_ptr<Cube_Array> rubik_storage;
+    // 随机数内容
+    std::random_device rd;
+    std::mt19937 gen;
+    std::uniform_int_distribution<nanoka_num_t> dis;
 };
 
 #endif
