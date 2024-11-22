@@ -1,5 +1,5 @@
-#ifndef CUBE_BUFFER_NANOKA_H
-#define CUBE_BUFFER_NANOKA_H
+#ifndef CUBE_ALGORITHM_NANOKA_H
+#define CUBE_ALGORITHM_NANOKA_H
 
 #include <rubik_cube.hpp>
 #include <rubik_cube_base.hpp>
@@ -16,6 +16,7 @@ public:
     Algo_BFS &operator=(Algo_BFS &) = default;
     Algo_BFS &operator=(Algo_BFS &&) = default;
 
+    // 
     nanoka_num_t nanoka_compute_bfs(void);
 
 private:
