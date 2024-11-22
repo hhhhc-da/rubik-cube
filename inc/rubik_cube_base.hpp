@@ -4,11 +4,11 @@
 #include <iostream>
 #include <vector>
 
+#include <iterator>
 #include <map>
 #include <memory>
 #include <set>
 #include <utility>
-#include <iterator>
 
 #include <cstdlib>
 
@@ -81,15 +81,16 @@ typedef int nanoka_move_enum_t;
 //////////////////////////////////////////////////////////////////////
 
 // 获取 Map 的主键
-std::vector<nanoka_num_t> nanoka_get_keys(std::map<nanoka_num_t, nanoka_num_t>& m);
+std::vector<nanoka_num_t> nanoka_get_keys(std::map<nanoka_num_t, nanoka_num_t> &m);
 // 获取 Map 的值
-std::vector<nanoka_num_t> nanoka_get_values(std::map<nanoka_num_t, nanoka_num_t>& m);
+std::vector<nanoka_num_t> nanoka_get_values(std::map<nanoka_num_t, nanoka_num_t> &m);
 
-#define NANOKA_ANY 0 
+#define NANOKA_ANY 0
 #define NANOKA_ALL 1
 
 // 快捷比较函数
 nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, nanoka_num_t value, nanoka_status_t mode);
 nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, nanoka_num_t value, nanoka_status_t mode);
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, std::vector<nanoka_storage_t> data2);
 
 #endif

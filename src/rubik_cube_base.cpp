@@ -55,6 +55,56 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, nanoka_num_t value,
     return NANOKA_ERROR;
 }
 
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, std::vector<nanoka_storage_t> data2)
+{
+    try
+    {
+        if (data.size() != data2.size())
+            throw std::runtime_error("compared vectors' length not fitable.");
+
+        for (nanoka_num_t i = 0; i < data.size(); ++i)
+        {
+            if (data.at(i) != data2.at(i))
+                return NANOKA_ERROR;
+        }
+        return NANOKA_SUCCESS;
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(::nanoka_equal) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(::nanoka_equal) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    return NANOKA_ERROR;
+}
+
+nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, std::vector<nanoka_num_t> data2)
+{
+    try
+    {
+        if (data.size() != data2.size())
+            throw std::runtime_error("compared vectors' length not fitable.");
+
+        for (nanoka_num_t i = 0; i < data.size(); ++i)
+        {
+            if (data.at(i) != data2.at(i))
+                return NANOKA_ERROR;
+        }
+        return NANOKA_SUCCESS;
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(::nanoka_equal) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(::nanoka_equal) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    return NANOKA_ERROR;
+}
+
 nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, nanoka_num_t value, nanoka_status_t mode)
 {
     try

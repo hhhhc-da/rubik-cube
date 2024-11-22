@@ -60,6 +60,10 @@ public:
     {
         return dis(gen);
     }
+    // 魔方存储读取函数
+    std::vector<nanoka_storage_t> rubik_read_all(void){
+        return rubik_storage->cube_read_all();
+    }
 
 private:
     // 魔方阶数

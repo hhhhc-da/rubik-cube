@@ -12,15 +12,15 @@
 
 // cube_array 联合编译控制宏定义
 #define VALID_CUBE_ARRAY_FULL_DEBUG 0
-#define VALID_CUBE_ARRAY_STORAGE_STATUS 0
+#define VALID_CUBE_ARRAY_STORAGE_STATUS 1
 #define VALID_CUBE_ARRAY_STORAGE_MODE COMMON_MODE
 
 #define VALID_CUBE_ARRAY_SPIN_STATUS 0
 #define VALID_CUBE_ARRAY_SPIN_YAW_STATUS 0
 #define VALID_CUBE_ARRAY_SPIN_ROLL_STATUS 0
-#define VALID_CUBE_ARRAY_SPIN_PITCH_STATUS 1
+#define VALID_CUBE_ARRAY_SPIN_PITCH_STATUS 0
 
-#define VALID_CUBE_ARRAY_STATISTIC_STATUS 1
+#define VALID_CUBE_ARRAY_STATISTIC_STATUS 0
 
 // rubik_cube 联合编译控制宏定义
 #define VALID_RUBIK_CUBE_FULL_DEBUG 0
@@ -28,7 +28,8 @@
 #define VALID_RUBIK_CUBE_RANDOM_STATUS 1
 
 // rubik_cube 验证区块函数
-void valid_rubik_cube(void){
+void valid_rubik_cube(void)
+{
     std::cout << "valid_rubik_cube 测试函数开始运行!" << std::endl;
     // 开始验证存储体结构
     auto x = std::make_shared<Rubik_Cube>(NANOKA_CASE_NUM, NANOKA_LAYER_NUM);
@@ -41,7 +42,8 @@ void valid_rubik_cube(void){
     std::cout << "查询魔方状态: " << pr[stt] << std::endl;
     x->rubik_check("Left");
 
-    for (nanoka_num_t i = 0; i < 4;++i){
+    for (nanoka_num_t i = 0; i < 4; ++i)
+    {
         x->rubik_ctrl(NANOKA_MOVE_YAW, MOVE_POS_90);
         stt = x->rubik_done();
         std::cout << "查询魔方状态: " << pr[stt] << std::endl;
@@ -52,7 +54,6 @@ void valid_rubik_cube(void){
 #if VALID_RUBIK_CUBE_RANDOM_STATUS || VALID_RUBIK_CUBE_FULL_DEBUG
     x->rubik_random_state_generator(5);
 #endif
-
 }
 
 // 初始化模式选择函数
@@ -103,26 +104,26 @@ void valid_cube_array(void)
     std::cout << "开始测试快捷运算函数 nanoka_equal(nanoka_num_t)" << std::endl;
     nanoka_status_t ret = nanoka_equal(m_keys, 0, NANOKA_ANY);
     std::cout << "nanoka_equal(m_keys, 0, NANOKA_ANY) => " << pr[ret] << std::endl;
-    
+
     ret = nanoka_equal(m_keys, 0, NANOKA_ALL);
     std::cout << "nanoka_equal(m_keys, 0, NANOKA_ALL) => " << pr[ret] << std::endl;
-    
+
     ret = nanoka_equal(m_keys, 1, NANOKA_ANY);
     std::cout << "nanoka_equal(m_keys, 1, NANOKA_ANY) => " << pr[ret] << std::endl;
-    
+
     ret = nanoka_equal(m_keys, 1, NANOKA_ALL);
     std::cout << "nanoka_equal(m_keys, 1, NANOKA_ALL) => " << pr[ret] << std::endl;
-    
+
     ret = nanoka_equal(m_values, 4, NANOKA_ANY);
     std::cout << "nanoka_equal(m_values, 4, NANOKA_ANY) => " << pr[ret] << std::endl;
-    
+
     ret = nanoka_equal(m_values, 4, NANOKA_ALL);
     std::cout << "nanoka_equal(m_values, 4, NANOKA_ANY) => " << pr[ret] << std::endl;
 
     std::cout << "开始测试快捷运算函数 nanoka_equal(nanoka_num_t)" << std::endl;
     // 直接读取 Top 面
     std::vector<nanoka_storage_t> buffer2 = x->cube_read(0);
-    
+
     ret = nanoka_equal(buffer2, buffer2.at(0), NANOKA_ALL);
     x->cube_print_pos(0);
     std::cout << "nanoka_equal(buffer2, buffer2.at(0), NANOKA_ALL) => " << pr[ret] << std::endl;
@@ -143,6 +144,17 @@ void valid_cube_array(void)
         x->cube_full(i, vec.at(i));
     }
     x->cube_print();
+
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::vector<nanoka_storage_t> all_storage = x->cube_read_all();
+
+    std::cout << "总共存储占用: " << all_storage.size() << " * " << sizeof(nanoka_storage_t) << " Byte" << std::endl;
+
+    std::cout << "存储体: [ " << std::flush;
+    for (nanoka_storage_t &elem : all_storage)
+        std::cout << static_cast<nanoka_num_t>(elem) << " ";
+    std::cout << "]" << std::endl;
+
 #endif
 
 #if VALID_CUBE_ARRAY_SPIN_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG

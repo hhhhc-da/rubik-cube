@@ -36,6 +36,31 @@ nanoka_status_t Cube_Array::cube_reset(void)
     cube_init();
 }
 
+// 魔方存储体获取函数
+std::vector<nanoka_storage_t> Cube_Array::cube_read_all(void)
+{
+    std::vector<nanoka_storage_t> ret;
+
+    try
+    {
+        for (nanoka_num_t i = 0; i < layer_num; ++i)
+        {
+            std::vector<nanoka_storage_t> buf = cube_read(i);
+            for (nanoka_storage_t &elem : buf)
+                ret.emplace_back(elem);
+        }
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(Cube_Array::cube_read_all) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(Cube_Array::cube_read_all) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    return ret;
+}
+
 // 魔方填充函数 (使用 nanoka_num_t 类型数据表示颜色)
 nanoka_status_t Cube_Array::cube_full(nanoka_num_t layer, nanoka_num_t color)
 {

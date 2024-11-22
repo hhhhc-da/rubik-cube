@@ -1,8 +1,8 @@
 #ifndef VALID_HEADER_NANOKA_H
 #define VALID_HEADER_NANOKA_H
 
+#include <cube_algorithm.hpp>
 #include <cube_array.hpp>
-#include <cube_buffer.hpp>
 #include <layer_array.hpp>
 #include <rubik_cube.hpp>
 #include <rubik_cube_base.hpp>
