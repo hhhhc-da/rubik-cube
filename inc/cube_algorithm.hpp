@@ -8,7 +8,7 @@
 class Algo_BFS
 {
 public:
-    Algo_BFS() : order_rc(std::make_shared<Rubik_Cube>(NANOKA_CASE_NUM, NANOKA_LAYER_NUM);), reverse_rc(std::make_shared<Rubik_Cube>(NANOKA_CASE_NUM, NANOKA_LAYER_NUM);) {}
+    Algo_BFS() : order_rc(std::make_shared<Rubik_Cube>(NANOKA_CASE_NUM, NANOKA_LAYER_NUM)), reverse_rc(std::make_shared<Rubik_Cube>(NANOKA_CASE_NUM, NANOKA_LAYER_NUM)) {}
     
     Algo_BFS(Algo_BFS &) = default;
     Algo_BFS(Algo_BFS &&) = default;
@@ -16,8 +16,10 @@ public:
     Algo_BFS &operator=(Algo_BFS &) = default;
     Algo_BFS &operator=(Algo_BFS &&) = default;
 
-    // 
+    // 计算魔方的上帝之数 
     nanoka_num_t nanoka_compute_bfs(void);
+    // 魔方开始随机初始化状态函数
+    nanoka_status_t nanoka_random_state(void);
 
 private:
     // 两个魔方存储体

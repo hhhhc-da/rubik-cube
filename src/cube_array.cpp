@@ -61,6 +61,51 @@ std::vector<nanoka_storage_t> Cube_Array::cube_read_all(void)
     return ret;
 }
 
+// 魔方内容写入函数
+nanoka_status_t Cube_Array::cube_write(nanoka_num_t pos, std::vector<nanoka_storage_t> data)
+{
+    try
+    {
+        *(cube_storage.at(pos)) = data;
+        return NANOKA_SUCCESS;
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(Cube_Array::cube_write) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(Cube_Array::cube_write) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    return NANOKA_ERROR;
+}
+
+// 魔方存储体写入函数
+nanoka_status_t Cube_Array::cube_write_all(std::vector<nanoka_storage_t> x)
+{
+    try
+    {
+        if (x.size() != cube_num * cube_num * layer_num)
+            throw std::runtime_error("vector size not fitable.");
+
+        auto step = cube_num * cube_num;
+        for (nanoka_num_t i = 0; i < layer_num; ++i)
+        {
+            std::vector<nanoka_storage_t> buf(x.begin() + i * step, x.begin() + (i + 1) * step);
+            cube_write(i, buf);
+        }
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(Cube_Array::cube_write_all) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(Cube_Array::cube_write_all) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    return NANOKA_ERROR;
+}
+
 // 魔方填充函数 (使用 nanoka_num_t 类型数据表示颜色)
 nanoka_status_t Cube_Array::cube_full(nanoka_num_t layer, nanoka_num_t color)
 {

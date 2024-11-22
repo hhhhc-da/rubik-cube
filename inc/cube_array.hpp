@@ -34,15 +34,21 @@ public:
     // 魔方表面个数统计函数
     nanoka_statistic_t cube_count(void);
     // 魔方内容读取函数
-    std::vector<nanoka_storage_t> cube_read(nanoka_num_t pos){
+    std::vector<nanoka_storage_t> cube_read(nanoka_num_t pos)
+    {
         return cube_storage.at(pos)->get_storage();
     }
+    // 魔方内容写入函数
+    nanoka_status_t cube_write(nanoka_num_t pos, std::vector<nanoka_storage_t> data);
     // 魔方存储体获取函数
     std::vector<nanoka_storage_t> cube_read_all(void);
+    // 魔方存储体写入函数
+    nanoka_status_t cube_write_all(std::vector<nanoka_storage_t> x);
     // 魔方单面输出函数
-    void cube_print_pos(nanoka_num_t pos){
+    void cube_print_pos(nanoka_num_t pos)
+    {
         cube_storage.at(pos)->print_storage();
-    } 
+    }
 
 private:
     // 魔方阶数

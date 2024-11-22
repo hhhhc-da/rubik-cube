@@ -32,6 +32,16 @@ nanoka_status_t Layer_Array::route_90(bool reverse = false)
     return NANOKA_ERROR;
 }
 
+// 将数据拷贝进去
+Layer_Array &Layer_Array::operator=(std::vector<nanoka_storage_t> data)
+{
+    if(data.size() != data_len)
+        throw std::runtime_error("(Layer_Array::operator=) vector size not fitable.");
+
+    storage = data;
+    return *this;
+}
+
 // 获取当前的面结果 (不允许外部修改)
 std::vector<nanoka_storage_t> Layer_Array::get_storage(void) const
 {

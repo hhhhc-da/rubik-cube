@@ -58,6 +58,7 @@ typedef int nanoka_status_t;
 
 #define NANOKA_SUCCESS 0
 #define NANOKA_ERROR 1
+#define NANOKA_FAILURE -1
 
 //////////////////////////////////////////////////////////////////////
 // 操作方式重定义

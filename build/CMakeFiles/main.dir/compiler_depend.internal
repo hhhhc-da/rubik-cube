@@ -3,8 +3,10 @@
 
 CMakeFiles/main.dir/src/cube_algorithm.cpp.obj
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/cube_algorithm.cpp
+ D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/cube_algorithm.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/cube_array.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/layer_array.hpp
+ D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/rubik_cube.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/rubik_cube_base.hpp
  D:/pandownload1/COMPUTER/MinGW/include/_mingw.h
  D:/pandownload1/COMPUTER/MinGW/include/ctype.h
@@ -506,8 +508,8 @@ CMakeFiles/main.dir/src/layer_array.cpp.obj
 
 CMakeFiles/main.dir/src/main.cpp.obj
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/main.cpp
+ D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/cube_algorithm.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/cube_array.hpp
- D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/cube_buffer.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/layer_array.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/rubik_cube.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/rubik_cube_base.hpp
@@ -1012,8 +1014,8 @@ CMakeFiles/main.dir/src/rubik_cube_base.cpp.obj
 
 CMakeFiles/main.dir/src/valid.cpp.obj
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/src/valid.cpp
+ D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/cube_algorithm.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/cube_array.hpp
- D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/cube_buffer.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/layer_array.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/rubik_cube.hpp
  D:/pandownload1/Desktop/CodingFolder/C++/Rubik_cube/inc/rubik_cube_base.hpp

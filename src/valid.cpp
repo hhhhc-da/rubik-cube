@@ -155,12 +155,24 @@ void valid_cube_array(void)
         std::cout << static_cast<nanoka_num_t>(elem) << " ";
     std::cout << "]" << std::endl;
 
+    std::vector<nanoka_storage_t> wbuf;
+    for (nanoka_num_t i = 0; i < 24;++i)
+        wbuf.emplace_back(i % 7 + 1);
+
+    x->cube_write_all(wbuf);
+    all_storage = x->cube_read_all();
+    
+    std::cout << "修改后存储体: [ " << std::flush;
+    for (nanoka_storage_t &elem : all_storage)
+        std::cout << static_cast<nanoka_num_t>(elem) << " ";
+    std::cout << "]" << std::endl;
+
 #endif
 
 #if VALID_CUBE_ARRAY_SPIN_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
 #if VALID_CUBE_ARRAY_SPIN_YAW_STATUS
-    // Z 轴旋转
-    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+            // Z 轴旋转
+            _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
     std::cout << "\n对顶面顺时针旋转 90 度" << std::endl;
     x->cube_move(NANOKA_MOVE_YAW, MOVE_POS_90);
     x->cube_print();

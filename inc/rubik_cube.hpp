@@ -61,8 +61,14 @@ public:
         return dis(gen);
     }
     // 魔方存储读取函数
-    std::vector<nanoka_storage_t> rubik_read_all(void){
+    std::vector<nanoka_storage_t> rubik_read_all(void)
+    {
         return rubik_storage->cube_read_all();
+    }
+    // 魔方存储写入函数
+    nanoka_status_t rubik_write_all(std::vector<nanoka_storage_t> x)
+    {
+        return rubik_storage->cube_write_all(x);
     }
 
 private:
@@ -72,6 +78,7 @@ private:
     nanoka_num_t rubik_layer_num;
     // 魔方内容存储体
     std::shared_ptr<Cube_Array> rubik_storage;
+
     // 随机数内容
     std::random_device rd;
     std::mt19937 gen;

@@ -27,6 +27,8 @@ public:
     Layer_Array &operator=(Layer_Array &) = default;
     Layer_Array &operator=(Layer_Array &&) = default;
     ~Layer_Array() = default;
+    // 快速写入
+    Layer_Array &operator=(std::vector<nanoka_storage_t> data);
 
     // 旋转九十度函数 (默认顺时针, 开启 reverse 可以逆时针旋转 90 度)
     nanoka_status_t route_90(bool reverse);
