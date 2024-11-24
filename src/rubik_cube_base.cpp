@@ -1,5 +1,11 @@
 #include <rubik_cube_base.hpp>
 
+// 随机数全局变量
+std::random_device rd;
+std::mt19937 gen(rd());
+// 打乱随机数分布
+std::uniform_int_distribution<nanoka_num_t> dis(0, 100);
+
 // Map key
 std::vector<nanoka_num_t> nanoka_get_keys(std::map<nanoka_num_t, nanoka_num_t> &m)
 {
@@ -91,7 +97,7 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, std::vector<nan
     try
     {
         if (data.size() != data2.size())
-            throw std::runtime_error("compared vectors' length not fitable. data.size() = " +  std::to_string(data.size()) + " data2.size() = " +  std::to_string(data2.size()) + ".");
+            throw std::runtime_error("compared vectors' length not fitable. data.size() = " + std::to_string(data.size()) + " data2.size() = " + std::to_string(data2.size()) + ".");
 
         for (nanoka_num_t i = 0; i < data.size(); ++i)
         {
@@ -116,7 +122,7 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, std::vector<nanoka_
     try
     {
         if (data.size() != data2.size())
-            throw std::runtime_error("compared vectors' length not fitable. data.size() = " +  std::to_string(data.size()) + " data2.size() = " +  std::to_string(data2.size()) + ".");
+            throw std::runtime_error("compared vectors' length not fitable. data.size() = " + std::to_string(data.size()) + " data2.size() = " + std::to_string(data2.size()) + ".");
 
         for (nanoka_num_t i = 0; i < data.size(); ++i)
         {

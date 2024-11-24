@@ -35,7 +35,7 @@ nanoka_status_t Layer_Array::route_90(bool reverse = false)
 // 将数据拷贝进去
 Layer_Array &Layer_Array::operator=(std::vector<nanoka_storage_t> data)
 {
-    if(data.size() != data_len)
+    if (data.size() != data_len)
         throw std::runtime_error("(Layer_Array::operator=) vector size not fitable.");
 
     storage = data;

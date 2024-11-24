@@ -87,6 +87,11 @@ typedef int nanoka_move_enum_t;
 #define NANOKA_ORDER 0
 #define NANOKA_REVERSE 1
 
+// 随机数链接
+extern std::random_device rd;
+extern std::mt19937 gen;
+extern std::uniform_int_distribution<nanoka_num_t> dis;
+
 // 获取 Map 的主键
 std::vector<nanoka_num_t> nanoka_get_keys(std::map<nanoka_num_t, nanoka_num_t> &m);
 // 获取 Map 的值
