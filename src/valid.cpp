@@ -27,6 +27,37 @@
 #define VALID_RUBIK_CUBE_DONE_STATUS 0
 #define VALID_RUBIK_CUBE_RANDOM_STATUS 1
 
+// cube_algorithm 联合编译控制宏定义
+#define VALID_CUBE_ALGO_FULL_DEBUG 0
+#define VALID_CUBE_ALGO_IN_STATUS 0
+#define VALID_CUBE_ALGO_EXPAND_STATUS 1
+
+// cube_algorithm 验证区块函数
+void valid_cube_algo(void)
+{
+    std::cout << "valid_cube_algo 测试函数开始运行!" << std::endl;
+
+#if VALID_CUBE_ALGO_IN_STATUS || VALID_CUBE_ALGO_FULL_DEBUG
+    nanoka_map_t source = {
+        {0, {{1, 2, 3}, {2, 3, 4}}}, {1, {{1, 2, 3}, {7, 3, 6}}}};
+    std::vector<nanoka_storage_t> tv = {1, 2, 3};
+    std::cout << ((nanoka_in(source, tv) == NANOKA_SUCCESS) ? "NANOKA_SUCCESS" : "NANOKA_ERROR") << std::endl;
+
+    tv = {7, 3, 6};
+    std::cout << ((nanoka_in(source, tv) == NANOKA_SUCCESS) ? "NANOKA_SUCCESS" : "NANOKA_ERROR") << std::endl;
+
+    tv = {1, 2, 3, 4};
+    std::cout << ((nanoka_in(source, tv) == NANOKA_SUCCESS) ? "NANOKA_SUCCESS" : "NANOKA_ERROR") << std::endl;
+#endif
+
+#if VALID_CUBE_ALGO_EXPAND_STATUS || VALID_CUBE_ALGO_FULL_DEBUG
+    std::shared_ptr<Algo_BFS> x = std::make_shared<Algo_BFS>();
+
+    nanoka_num_t result = x->nanoka_compute_bfs();
+    std::cout << "这个魔方的最短旋转次数为 " << result << " 次" << std::endl;
+#endif
+}
+
 // rubik_cube 验证区块函数
 void valid_rubik_cube(void)
 {
@@ -156,12 +187,12 @@ void valid_cube_array(void)
     std::cout << "]" << std::endl;
 
     std::vector<nanoka_storage_t> wbuf;
-    for (nanoka_num_t i = 0; i < 24;++i)
+    for (nanoka_num_t i = 0; i < 24; ++i)
         wbuf.emplace_back(i % 7 + 1);
 
     x->cube_write_all(wbuf);
     all_storage = x->cube_read_all();
-    
+
     std::cout << "修改后存储体: [ " << std::flush;
     for (nanoka_storage_t &elem : all_storage)
         std::cout << static_cast<nanoka_num_t>(elem) << " ";
@@ -171,8 +202,8 @@ void valid_cube_array(void)
 
 #if VALID_CUBE_ARRAY_SPIN_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
 #if VALID_CUBE_ARRAY_SPIN_YAW_STATUS
-            // Z 轴旋转
-            _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    // Z 轴旋转
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
     std::cout << "\n对顶面顺时针旋转 90 度" << std::endl;
     x->cube_move(NANOKA_MOVE_YAW, MOVE_POS_90);
     x->cube_print();

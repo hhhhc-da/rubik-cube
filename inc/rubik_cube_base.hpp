@@ -51,6 +51,8 @@ typedef uint8_t nanoka_storage_t;
 typedef std::set<std::vector<nanoka_storage_t>> nanoka_case_t;
 // 统计基准类型
 typedef std::pair<nanoka_num_t, std::map<nanoka_num_t, nanoka_num_t>> nanoka_statistic_t;
+// 存储数据结构
+typedef std::map<nanoka_num_t, std::vector<std::vector<nanoka_storage_t>>> nanoka_map_t;
 
 //////////////////////////////////////////////////////////////////////
 // 返回状态码重定义
@@ -81,6 +83,10 @@ typedef int nanoka_move_enum_t;
 
 //////////////////////////////////////////////////////////////////////
 
+// BFS 中选择插入的标识
+#define NANOKA_ORDER 0
+#define NANOKA_REVERSE 1
+
 // 获取 Map 的主键
 std::vector<nanoka_num_t> nanoka_get_keys(std::map<nanoka_num_t, nanoka_num_t> &m);
 // 获取 Map 的值
@@ -93,5 +99,8 @@ std::vector<nanoka_num_t> nanoka_get_values(std::map<nanoka_num_t, nanoka_num_t>
 nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, nanoka_num_t value, nanoka_status_t mode);
 nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, nanoka_num_t value, nanoka_status_t mode);
 nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, std::vector<nanoka_storage_t> data2);
+
+// 检索函数
+nanoka_status_t nanoka_in(nanoka_map_t data_map, std::vector<nanoka_storage_t> data);
 
 #endif
