@@ -28,6 +28,9 @@
 #include <random>
 #include <unistd.h>
 
+#include <chrono>
+#include <iomanip>
+
 /* 这里使用的是二阶魔方，首先魔方有每面四个格子
  * 同时，魔方是正规的正方体，所以我们默认使用六个面
  * 在表示数据的时候，我们的四个数据采用以下方式进行
