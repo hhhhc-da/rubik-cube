@@ -101,11 +101,12 @@ std::vector<nanoka_num_t> nanoka_get_values(std::map<nanoka_num_t, nanoka_num_t>
 #define NANOKA_ALL 1
 
 // 快捷比较函数
-nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, nanoka_num_t value, nanoka_status_t mode);
-nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, nanoka_num_t value, nanoka_status_t mode);
-nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, std::vector<nanoka_storage_t> data2);
+nanoka_status_t nanoka_equal(std::vector<nanoka_num_t>& data, nanoka_num_t value, nanoka_status_t mode);
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, nanoka_num_t value, nanoka_status_t mode);
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, std::vector<nanoka_storage_t>& data2);
 
 // 检索函数
-nanoka_status_t nanoka_in(nanoka_map_t data_map, std::vector<nanoka_storage_t> data);
+nanoka_status_t nanoka_in(nanoka_map_t& data_map, std::vector<nanoka_storage_t>& data);
+nanoka_status_t nanoka_in(std::vector<std::vector<nanoka_storage_t>>& data_set, std::vector<nanoka_storage_t>& data);
 
 #endif

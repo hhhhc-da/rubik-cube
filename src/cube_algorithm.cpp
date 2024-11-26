@@ -5,7 +5,7 @@ nanoka_num_t Algo_BFS::nanoka_compute_bfs(void)
     try
     {
         // 我们首先获取我们的初始状态
-        nanoka_status_t ret = nanoka_random_state(6);
+        nanoka_status_t ret = nanoka_random_state(24);
         if (ret == NANOKA_ERROR)
             throw std::runtime_error("nanoka_random_state failed.");
 
@@ -21,18 +21,22 @@ nanoka_num_t Algo_BFS::nanoka_compute_bfs(void)
             for (nanoka_num_t i = 0; i < dir.size(); ++i)
             {
                 std::cout << "层数信息: order 层 " << num_pack.at(0) << ", reverse 层 " << num_pack.at(1) << std::endl;
-                ret = nanoka_compare_map();
-                // 如果存在相等路径, 那我们直接退出
-                if (ret == NANOKA_SUCCESS)
-                {
-                    std::cout << "搜索到最近的路径" << std::endl;
-                    return num_pack.at(0) + num_pack.at(1);
-                }
+                // ret = nanoka_compare_map();
+                // // 如果存在相等路径, 那我们直接退出
+                // if (ret == NANOKA_SUCCESS)
+                // {
+                //     std::cout << "搜索到最近的路径" << std::endl;
+                //     return num_pack.at(0) + num_pack.at(1);
+                // }
 
                 // 开始维护我们的状态表, 每次维护后都要重新判断相等
                 ret = nanoka_expand_map(dir[i]);
                 if (ret == NANOKA_ERROR)
-                    throw std::runtime_error(std::string("nanoka_expand_map (") + ((i == 0) ? "NANOKA_ORDER" : "NANOKA_REVERSE") + std::string(") failed."));
+                {
+                    // throw std::runtime_error(std::string("nanoka_expand_map (") + ((i == 0) ? "NANOKA_ORDER" : "NANOKA_REVERSE") + std::string(") failed."));
+                    std::cout << "发现了最近的节点" << std::endl;
+                    return num_pack.at(0) + num_pack.at(1) + 1;
+                }
             }
         }
     }
@@ -84,13 +88,22 @@ nanoka_status_t Algo_BFS::nanoka_expand_map(nanoka_num_t direction)
                         std::vector<nanoka_storage_t> buffer = rc->rubik_read_all();
                         // 如果没有重复, 那么我们将他添加到新一个表中
                         if (nanoka_in(order_map, buffer) != NANOKA_SUCCESS)
+                        {
                             storage.push_back(buffer);
+                            
+                            if(nanoka_in(reverse_map[num_pack.at(1)], buffer) == NANOKA_SUCCESS)
+                            {
+                                std::cout << "最后一层遍历到: " << storage.size() << std::endl;
+                                return NANOKA_ERROR;
+                            }
+                        }
                     }
                 }
             }
 
             num_pack.at(0) += 1;
             order_map[num_pack.at(0)] = storage;
+            std::cout << "正向增长插入个数: [" + std::to_string(storage.size()) + "]" << std::endl;
         }
         else if (direction == NANOKA_REVERSE) // 反向增长
         {
@@ -112,13 +125,22 @@ nanoka_status_t Algo_BFS::nanoka_expand_map(nanoka_num_t direction)
                         std::vector<nanoka_storage_t> buffer = rc->rubik_read_all();
                         // 如果没有重复, 那么我们将他添加到新一个表中
                         if (nanoka_in(reverse_map, buffer) != NANOKA_SUCCESS)
+                        {
                             storage.push_back(buffer);
+                            
+                            if(nanoka_in(order_map[num_pack.at(0)], buffer) == NANOKA_SUCCESS)
+                            {
+                                std::cout << "最后一层遍历到: " << storage.size() << std::endl;
+                                return NANOKA_ERROR;
+                            }
+                        }
                     }
                 }
             }
 
             num_pack.at(1) += 1;
             reverse_map[num_pack.at(1)] = storage;
+            std::cout << "反向增长插入个数: [" + std::to_string(storage.size()) + "]" << std::endl;
         }
         else
             throw std::runtime_error("nanoka_random_state failed.");

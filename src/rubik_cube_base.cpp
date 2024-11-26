@@ -2,7 +2,8 @@
 
 // 随机数全局变量
 std::random_device rd;
-std::mt19937 gen(rd());
+// std::mt19937 gen(rd());
+std::mt19937 gen(54355);
 // 打乱随机数分布
 std::uniform_int_distribution<nanoka_num_t> dis(0, 100);
 
@@ -30,7 +31,7 @@ std::vector<nanoka_num_t> nanoka_get_values(std::map<nanoka_num_t, nanoka_num_t>
     return values;
 }
 
-nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, nanoka_num_t value, nanoka_status_t mode)
+nanoka_status_t nanoka_equal(std::vector<nanoka_num_t>& data, nanoka_num_t value, nanoka_status_t mode)
 {
     try
     {
@@ -61,7 +62,7 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, nanoka_num_t value,
     return NANOKA_ERROR;
 }
 
-nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, nanoka_num_t value, nanoka_status_t mode)
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, nanoka_num_t value, nanoka_status_t mode)
 {
     try
     {
@@ -92,7 +93,7 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, nanoka_num_t va
     return NANOKA_ERROR;
 }
 
-nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, std::vector<nanoka_storage_t> data2)
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, std::vector<nanoka_storage_t>& data2)
 {
     try
     {
@@ -117,7 +118,7 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> data, std::vector<nan
     return NANOKA_ERROR;
 }
 
-nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, std::vector<nanoka_num_t> data2)
+nanoka_status_t nanoka_equal(std::vector<nanoka_num_t>& data, std::vector<nanoka_num_t>& data2)
 {
     try
     {
@@ -142,7 +143,7 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> data, std::vector<nanoka_
     return NANOKA_ERROR;
 }
 
-nanoka_status_t nanoka_in(nanoka_map_t data_map, std::vector<nanoka_storage_t> data)
+nanoka_status_t nanoka_in(nanoka_map_t& data_map, std::vector<nanoka_storage_t>& data)
 {
     try
     {
@@ -159,6 +160,31 @@ nanoka_status_t nanoka_in(nanoka_map_t data_map, std::vector<nanoka_storage_t> d
                 if (nanoka_equal(elem, data) == NANOKA_SUCCESS)
                     return NANOKA_SUCCESS;
         }
+        return NANOKA_ERROR;
+    }
+    catch (std::runtime_error e)
+    {
+        std::cerr << "(::nanoka_equal) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "(::nanoka_equal) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    }
+    return NANOKA_ERROR;
+}
+
+nanoka_status_t nanoka_in(std::vector<std::vector<nanoka_storage_t>>& data_set, std::vector<nanoka_storage_t>& data)
+{
+    try
+    {
+        if (data_set.size() == 0)
+            throw std::runtime_error("data_map.size() == 0.");
+
+        // 如果发现相等的元素那么我们就检测到存在元素
+        for (auto &elem : data_set)
+            if (nanoka_equal(elem, data) == NANOKA_SUCCESS)
+                return NANOKA_SUCCESS;
+
         return NANOKA_ERROR;
     }
     catch (std::runtime_error e)
