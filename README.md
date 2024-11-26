@@ -1,5 +1,11 @@
 # rubik_cube
+#### 存储结构
+![image](./imgs/storage.jpg)
 
+#### 算法设计
+![image](./imgs/aogorithm.jpg)
+
+# 使用教程
 #### 介绍
 算法设计：二阶魔方程序
 
@@ -18,8 +24,8 @@ Git 命令示例
 
 ```
 git init
-git add remote nanoka https://gitee.com/nanokadesu/rubik_cube.git
-git pull --rebase nanoka master
+git add remote origin <url>
+git pull --rebase origin master
 # 这边修改好文件之后
 git add *
 git commit -am"xxx" # xxx 是你要添加的注释
