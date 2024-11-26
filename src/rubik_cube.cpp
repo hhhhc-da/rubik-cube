@@ -13,60 +13,60 @@ nanoka_status_t Rubik_Cube::rubik_random_state_generator(nanoka_num_t depth)
     std::map<nanoka_num_t, const char *> op = {
         {0, "+90"}, {1, "180"}, {2, "-90"}};
 
-    try
+    // try
+    // {
+    for (nanoka_num_t j = 0; j < depth; ++j)
     {
-        for (nanoka_num_t j = 0; j < depth; ++j)
+        for (nanoka_num_t i = 0; i < 2; ++i)
         {
-            for (nanoka_num_t i = 0; i < 2; ++i)
-            {
-                random_cache.push_back(rubik_random_generator());
-            }
-
-            std::cout << "第" << j + 1 << "次旋转魔方 ( " << action[random_cache.at(0)]
-                      << " " << op[random_cache.at(1)] << " )" << std::endl;
-            rubik_ctrl(random_cache.at(0), random_cache.at(1));
-
-            // 清理临时缓存
-            random_cache.clear();
+            random_cache.push_back(rubik_random_generator());
         }
 
-        rubik_print();
-        return NANOKA_SUCCESS;
+        std::cout << "第" << j + 1 << "次旋转魔方 ( " << action[random_cache.at(0)]
+                  << " " << op[random_cache.at(1)] << " )" << std::endl;
+        rubik_ctrl(random_cache.at(0), random_cache.at(1));
+
+        // 清理临时缓存
+        random_cache.clear();
     }
-    catch (std::runtime_error e)
-    {
-        std::cerr << "(Rubik_Cube::rubik_check) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
-    }
-    catch (...)
-    {
-        std::cerr << "(Rubik_Cube::rubik_check) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
-    }
+
+    // rubik_print();
+    return NANOKA_SUCCESS;
+    // }
+    // catch (std::runtime_error e)
+    // {
+    //     std::cerr << "(Rubik_Cube::rubik_check) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    // }
+    // catch (...)
+    // {
+    //     std::cerr << "(Rubik_Cube::rubik_check) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    // }
     return NANOKA_ERROR;
 }
 
 // 魔方快速查看某个面函数
 void Rubik_Cube::rubik_check(std::string position)
 {
-    try
-    {
-        std::map<std::string, nanoka_num_t> f = {
-            {"Top", 0}, {"Left", 1}, {"Front", 2}, {"Right", 3}, {"Back", 4}, {"Bottom", 5}};
-        std::vector<std::string> s = {"Top", "Left", "Front", "Right", "Back", "Bottom"};
+    // try
+    // {
+    std::map<std::string, nanoka_num_t> f = {
+        {"Top", 0}, {"Left", 1}, {"Front", 2}, {"Right", 3}, {"Back", 4}, {"Bottom", 5}};
+    // std::vector<std::string> s = {"Top", "Left", "Front", "Right", "Back", "Bottom"};
 
-        if (std::find_if(s.begin(), s.end(), [&](std::string x)
-                         { return x == position; }) == s.end())
-            throw std::runtime_error("Key is invalid.");
+    // if (std::find_if(s.begin(), s.end(), [&](std::string x)
+    //                  { return x == position; }) == s.end())
+    //     throw std::runtime_error("Key is invalid.");
 
-        rubik_storage->cube_print_pos(f[position]);
-    }
-    catch (std::runtime_error e)
-    {
-        std::cerr << "(Rubik_Cube::rubik_check) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
-    }
-    catch (...)
-    {
-        std::cerr << "(Rubik_Cube::rubik_check) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
-    }
+    rubik_storage->cube_print_pos(f[position]);
+    // }
+    // catch (std::runtime_error e)
+    // {
+    //     std::cerr << "(Rubik_Cube::rubik_check) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    // }
+    // catch (...)
+    // {
+    //     std::cerr << "(Rubik_Cube::rubik_check) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    // }
 }
 
 // 检测魔方是否可用
@@ -97,30 +97,30 @@ nanoka_status_t Rubik_Cube::rubik_is_available(void)
 // 检测魔方是否是初始状态
 nanoka_status_t Rubik_Cube::rubik_done(void)
 {
-    try
+    // try
+    // {
+    //     nanoka_status_t avail = rubik_is_available();
+    //     if (avail == NANOKA_ERROR)
+    //         throw std::runtime_error("rubik cube is not available.");
+    // 魔方质量检测通过后只需要检测四个面是否颜色相同即可
+    for (nanoka_num_t i = 0; i < rubik_layer_num; ++i)
     {
-        nanoka_status_t avail = rubik_is_available();
-        if (avail == NANOKA_ERROR)
-            throw std::runtime_error("rubik cube is not available.");
-        // 魔方质量检测通过后只需要检测四个面是否颜色相同即可
-        for (nanoka_num_t i = 0; i < rubik_layer_num; ++i)
-        {
-            std::vector<nanoka_storage_t> buffer2 = rubik_storage->cube_read(i);
-            nanoka_status_t ret = nanoka_equal(buffer2, buffer2.at(0), NANOKA_ALL);
-            if (ret == NANOKA_ERROR)
-                return NANOKA_ERROR;
-        }
-        return NANOKA_SUCCESS;
+        std::vector<nanoka_storage_t> buffer2 = rubik_storage->cube_read(i);
+        nanoka_status_t ret = nanoka_equal(buffer2, buffer2.at(0), NANOKA_ALL);
+        if (ret == NANOKA_ERROR)
+            return NANOKA_ERROR;
     }
-    catch (std::runtime_error e)
-    {
-        std::cerr << "(Rubik_Cube::rubik_done) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
-    }
-    catch (...)
-    {
-        std::cerr << "(Rubik_Cube::rubik_done) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
-    }
-    return NANOKA_ERROR;
+    return NANOKA_SUCCESS;
+    // }
+    // catch (std::runtime_error e)
+    // {
+    //     std::cerr << "(Rubik_Cube::rubik_done) Runtime_error: " << e.what() << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    // }
+    // catch (...)
+    // {
+    //     std::cerr << "(Rubik_Cube::rubik_done) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
+    // }
+    // return NANOKA_ERROR;
 }
 
 /* 魔方操作函数
