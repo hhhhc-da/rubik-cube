@@ -1,6 +1,7 @@
 # rubik_cube
 #### 最终结果
-main 分支计数结果 1.231s, NoAssert分支 0.126s
+##### 1.231s - main 分支 
+##### 0.126s - NoAssert 分支
 
 #### 存储结构
 ![image](./imgs/storage.jpg)
