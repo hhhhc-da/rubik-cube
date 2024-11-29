@@ -1,11 +1,11 @@
 #include <cube_algorithm.hpp>
 
-nanoka_num_t Algo_BFS::nanoka_compute_bfs(void)
+nanoka_num_t Algo_BFS::nanoka_compute_bfs(nanoka_num_t depth)
 {
     try
     {
         // 我们首先获取我们的初始状态
-        nanoka_status_t ret = nanoka_random_state(24);
+        nanoka_status_t ret = nanoka_random_state(depth);
         if (ret == NANOKA_ERROR)
             throw std::runtime_error("nanoka_random_state failed.");
 
@@ -64,7 +64,7 @@ nanoka_status_t Algo_BFS::nanoka_expand_map(nanoka_num_t direction)
             throw std::runtime_error("num_pack.size() != 2 (size() = " + std::to_string(num_pack.size()) + ")");
 
         // 关系映射表
-        std::map<nanoka_num_t, nanoka_num_t> ir = {{0, NANOKA_MOVE_YAW}, {1, NANOKA_MOVE_ROLL}, {2, NANOKA_MOVE_PITCH}},
+        std::map<nanoka_num_t, nanoka_num_t> ir = {{0, NANOKA_MOVE_YAW}, {1, NANOKA_MOVE_ROLL}, {2, NANOKA_MOVE_PITCH},{3, NANOKA_MOVE_YAW_2}, {4, NANOKA_MOVE_ROLL_2}, {5, NANOKA_MOVE_PITCH_2}},
                                              op = {{0, MOVE_POS_90}, {1, MOVE_180}, {2, MOVE_NEG_90}};
 
         // 判断是增长哪个方向

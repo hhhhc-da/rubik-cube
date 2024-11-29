@@ -56,10 +56,7 @@ public:
         return rubik_storage->cube_reset();
     }
     // 魔方随机数生成函数
-    nanoka_num_t rubik_random_generator(void)
-    {
-        return dis(gen) % 3;
-    }
+    nanoka_num_t rubik_random_generator(nanoka_num_t max);
     // 魔方存储读取函数
     std::vector<nanoka_storage_t> rubik_read_all(void)
     {

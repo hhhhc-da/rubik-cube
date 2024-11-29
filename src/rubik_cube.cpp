@@ -1,5 +1,11 @@
 #include <rubik_cube.hpp>
 
+// 魔方随机数生成函数 (上限小于 100)
+nanoka_num_t Rubik_Cube::rubik_random_generator(nanoka_num_t max)
+{
+    return dis(gen) % max;
+}
+
 // 魔方随机旋转函数
 nanoka_status_t Rubik_Cube::rubik_random_state_generator(nanoka_num_t depth)
 {
@@ -9,9 +15,10 @@ nanoka_status_t Rubik_Cube::rubik_random_state_generator(nanoka_num_t depth)
     // 动作随机数缓存
     std::vector<nanoka_num_t> random_cache;
     std::map<nanoka_num_t, const char *> action = {
-        {0, "YAW"}, {1, "ROLL"}, {2, "PITCH"}};
+        {0, "YAW"}, {1, "ROLL"}, {2, "PITCH"}, {3, "YAW2"}, {4, "ROLL2"}, {5, "PITCH2"}};
     std::map<nanoka_num_t, const char *> op = {
         {0, "+90"}, {1, "180"}, {2, "-90"}};
+    std::vector<nanoka_num_t> max_list = {static_cast<nanoka_num_t>(action.size()), static_cast<nanoka_num_t>(op.size())};
 
     try
     {
@@ -19,7 +26,7 @@ nanoka_status_t Rubik_Cube::rubik_random_state_generator(nanoka_num_t depth)
         {
             for (nanoka_num_t i = 0; i < 2; ++i)
             {
-                random_cache.push_back(rubik_random_generator());
+                random_cache.push_back(rubik_random_generator(max_list.at(i)));
             }
 
             std::cout << "第" << j + 1 << "次旋转魔方 ( " << action[random_cache.at(0)]

@@ -9,6 +9,7 @@
 #include <memory>
 #include <set>
 #include <utility>
+#include <tuple>
 
 #include <cstdlib>
 
@@ -39,11 +40,16 @@
  * 这样表示数据时，我们可以轻松地实现魔方的旋转操作
  * 同时，我们使用一维数组进行存储，这样能有效减少误操作可能性
  * 我们使用动态定长的循环结构来表示数据
+ * 三阶魔方采用以下的存储方式 (9 号元素放在其他 vector 内)
+ * | 1 2 3 |
+ * | 8 9 4 |
+ * | 7 6 5 |
+ * 这样可以实现比较快的旋转
  */
 
 //////////////////////////////////////////////////////////////////////
-// 二阶魔方
-#define NANOKA_CASE_NUM 2
+// 三阶魔方
+#define NANOKA_CASE_NUM 3
 // 普通的正方体魔方面数
 #define NANOKA_LAYER_NUM 6
 // 计数基准类型
@@ -70,12 +76,17 @@ typedef int nanoka_status_t;
 typedef int nanoka_move_t;
 typedef int nanoka_move_enum_t;
 
+#define NANOKA_OP_BIAS 3
+
 // 水平偏转
 #define NANOKA_MOVE_YAW 0
+#define NANOKA_MOVE_YAW_2 NANOKA_MOVE_YAW + NANOKA_OP_BIAS
 // 左右横滚
 #define NANOKA_MOVE_ROLL 1
+#define NANOKA_MOVE_ROLL_2 NANOKA_MOVE_ROLL + NANOKA_OP_BIAS
 // 前后翻滚
 #define NANOKA_MOVE_PITCH 2
+#define NANOKA_MOVE_PITCH_2 NANOKA_MOVE_PITCH + NANOKA_OP_BIAS
 
 // 操作数枚举类型
 #define MOVE_POS_90 0
@@ -104,12 +115,12 @@ std::vector<nanoka_num_t> nanoka_get_values(std::map<nanoka_num_t, nanoka_num_t>
 #define NANOKA_ALL 1
 
 // 快捷比较函数
-nanoka_status_t nanoka_equal(std::vector<nanoka_num_t>& data, nanoka_num_t value, nanoka_status_t mode);
-nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, nanoka_num_t value, nanoka_status_t mode);
-nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, std::vector<nanoka_storage_t>& data2);
+nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> &data, nanoka_num_t value, nanoka_status_t mode);
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> &data, nanoka_num_t value, nanoka_status_t mode);
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> &data, std::vector<nanoka_storage_t> &data2);
 
 // 检索函数
-nanoka_status_t nanoka_in(nanoka_map_t& data_map, std::vector<nanoka_storage_t>& data);
-nanoka_status_t nanoka_in(std::vector<std::vector<nanoka_storage_t>>& data_set, std::vector<nanoka_storage_t>& data);
+nanoka_status_t nanoka_in(nanoka_map_t &data_map, std::vector<nanoka_storage_t> &data);
+nanoka_status_t nanoka_in(std::vector<std::vector<nanoka_storage_t>> &data_set, std::vector<nanoka_storage_t> &data);
 
 #endif

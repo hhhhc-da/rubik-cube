@@ -17,7 +17,7 @@ public:
     Algo_BFS &operator=(Algo_BFS &&) = default;
 
     // 计算魔方的上帝之数
-    nanoka_num_t nanoka_compute_bfs(void);
+    nanoka_num_t nanoka_compute_bfs(nanoka_num_t depth);
     // 魔方开始随机初始化状态函数
     nanoka_status_t nanoka_random_state(nanoka_num_t depth);
     /* BFS 中选择插入的标识有

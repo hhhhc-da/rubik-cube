@@ -85,8 +85,10 @@ nanoka_status_t Cube_Array::cube_write_all(std::vector<nanoka_storage_t> x)
 {
     try
     {
-        if (x.size() != cube_num * cube_num * layer_num)
-            throw std::runtime_error("vector size not fitable.");
+        if (x.size() != cube_num * cube_num * layer_num){
+            std::cout << "x.size() = " <<  x.size() << ", cube_num * cube_num * layer_num = " << cube_num * cube_num * layer_num << "." << std::endl;
+            throw std::runtime_error("vector size not fitable.");            
+        }
 
         auto step = cube_num * cube_num;
         for (nanoka_num_t i = 0; i < layer_num; ++i)
@@ -354,6 +356,119 @@ nanoka_status_t Cube_Array::cube_move(nanoka_move_t move_type, nanoka_move_enum_
             {
                 nanoka_num_t p = (i + buffer.size() - bias) % buffer.size();
                 cube_storage.at(desc[half_buffer.at(i).first])->alter(half_buffer.at(i).second, buffer[p]);
+            }
+        }
+        // 非边界偏航角
+        else if (move_type == NANOKA_MOVE_YAW_2)
+        {
+            // 存储缓冲区
+            std::vector<std::vector<nanoka_storage_t>> buffer;
+            std::vector<std::string> half_buffer = {"Left", "Front", "Right", "Back"};
+
+            for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
+            {
+                buffer.push_back(cube_storage.at(desc[half_buffer.at(i)])->read(4));
+                if (buffer[buffer.size() - 1].size() == 0)
+                    throw std::runtime_error("read data is empty.");
+            }
+
+            // 断言检测
+            if (buffer.empty())
+                throw std::runtime_error("read buffer is empty.");
+            if (buffer.size() != half_buffer.size())
+                throw std::runtime_error("buffer.size() != half_buffer.size().");
+
+            // bias 初始值为 0 表示状态不变, 状态应该改变
+            nanoka_num_t bias = 0; // 注意增长方向
+            if (move_step == MOVE_POS_90 || move_step == MOVE_180 || move_step == MOVE_NEG_90)
+                bias = 1 + move_step;
+            else
+                throw std::runtime_error("nanoka_move_enum_t move_step invalid.");
+
+            // 顺时针旋转，应该把 Front 面的内容转移到 Left 面中, 也就是对向左移动一组元素, 中间不需要移动其他面
+            for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
+                cube_storage.at(desc[half_buffer.at(i)])->alter(4, buffer[(i + bias) % buffer.size()]);
+        }
+        // 非边界横滚角
+        else if (move_type == NANOKA_MOVE_ROLL_2)
+        { 
+            // 存储缓冲区
+            std::vector<std::vector<nanoka_storage_t>> buffer;
+            // 面、读取位、翻转函数
+            std::vector<std::tuple<std::string, nanoka_num_t, nanoka_num_t>> half_buffer = {
+                {"Bottom", 4, 0}, {"Left", 5, 0}, {"Top", 4, 1}, {"Right", 5, 1}};
+
+            for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
+            {
+                // 这个函数不要乱改, 这个是计算过的结果
+                buffer.push_back(cube_storage.at(desc[std::get<0>(half_buffer.at(i))])->read(std::get<1>(half_buffer.at(i))));
+                if (buffer[buffer.size() - 1].size() == 0)
+                    throw std::runtime_error("read data is empty.");
+            }
+
+            // 断言检测
+            if (buffer.empty())
+                throw std::runtime_error("read buffer is empty.");
+            if (buffer.size() != half_buffer.size())
+                throw std::runtime_error("buffer.size() != half_buffer.size().");
+
+            // bias 初始值为 0 表示状态不变, 状态应该改变
+            nanoka_num_t bias = 0; // 注意增长方向
+            if (move_step == MOVE_POS_90 || move_step == MOVE_180 || move_step == MOVE_NEG_90)
+                bias = 1 + move_step;
+            else
+                throw std::runtime_error("nanoka_move_enum_t move_step invalid.");
+
+            // 顺时针旋转，应该把 Front 面的内容转移到 Left 面中, 也就是对向左移动一组元素
+            for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
+            {
+                // p 是我们要修改的目标元素位置, 而 i 的存储顺序按照
+                nanoka_num_t p = (i + buffer.size() - bias) % buffer.size();
+                // 检查是否需要 transpose 一下, 因为存储不会重复所以可以直接更改
+                if(std::get<2>(half_buffer.at(i)) != std::get<2>(half_buffer.at(p)))
+                    std::reverse(buffer[p].begin(), buffer[p].end());
+                cube_storage.at(desc[std::get<0>(half_buffer.at(i))])->alter(std::get<1>(half_buffer.at(i)), buffer[p]);
+            }
+        }
+        // 非边界俯仰角
+        else if (move_type == NANOKA_MOVE_PITCH_2)
+        {
+            // 存储缓冲区
+            std::vector<std::vector<nanoka_storage_t>> buffer;
+            // 面、读取位、翻转函数
+            std::vector<std::pair<std::string, nanoka_num_t>> half_buffer = {
+                {"Bottom", 0}, {"Back", 1}, {"Top", 0}, {"Front", 0}};
+
+            for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
+            {
+                // 这个函数不要乱改, 这个是计算过的结果
+                buffer.push_back(cube_storage.at(desc[half_buffer.at(i).first])->read(5));
+                if (buffer[buffer.size() - 1].size() == 0)
+                    throw std::runtime_error("read data is empty.");
+            }
+
+            // 断言检测
+            if (buffer.empty())
+                throw std::runtime_error("read buffer is empty.");
+            if (buffer.size() != half_buffer.size())
+                throw std::runtime_error("buffer.size() != half_buffer.size().");
+
+            // bias 初始值为 0 表示状态不变, 状态应该改变
+            nanoka_num_t bias = 0; // 注意增长方向
+            if (move_step == MOVE_POS_90 || move_step == MOVE_180 || move_step == MOVE_NEG_90)
+                bias = 1 + move_step;
+            else
+                throw std::runtime_error("nanoka_move_enum_t move_step invalid.");
+
+            // 顺时针旋转，应该把 Front 面的内容转移到 Left 面中, 也就是对向左移动一组元素
+            for (nanoka_num_t i = 0; i < half_buffer.size(); ++i)
+            {
+                // p 是我们要修改的目标元素位置, 而 i 的存储顺序按照
+                nanoka_num_t p = (i + buffer.size() - bias) % buffer.size();
+                // 检查是否需要 transpose 一下, 因为存储不会重复所以可以直接更改
+                if(half_buffer.at(i).second != half_buffer.at(p).second)
+                    std::reverse(buffer[p].begin(), buffer[p].end());
+                cube_storage.at(desc[half_buffer.at(i).first])->alter(5, buffer[p]);
             }
         }
         else

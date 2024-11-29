@@ -8,29 +8,31 @@
 #define VALID_LAYER_ARRAY_FULL_DEBUG 0
 #define VALID_LAYER_ARRAY_STORAGE_STATUS 0
 #define VALID_LAYER_ARRAY_SPIN_STATUS 0
-#define VALID_LAYER_ARRAY_SPIN_SET_STATUS 0
 
 // cube_array 联合编译控制宏定义
 #define VALID_CUBE_ARRAY_FULL_DEBUG 0
-#define VALID_CUBE_ARRAY_STORAGE_STATUS 1
-#define VALID_CUBE_ARRAY_STORAGE_MODE COMMON_MODE
+#define VALID_CUBE_ARRAY_STORAGE_STATUS 0
+#define VALID_CUBE_ARRAY_STORAGE_MODE VALID_MODE
 
 #define VALID_CUBE_ARRAY_SPIN_STATUS 0
 #define VALID_CUBE_ARRAY_SPIN_YAW_STATUS 0
 #define VALID_CUBE_ARRAY_SPIN_ROLL_STATUS 0
 #define VALID_CUBE_ARRAY_SPIN_PITCH_STATUS 0
+#define VALID_CUBE_ARRAY_SPIN_YAW_2_STATUS 1
+#define VALID_CUBE_ARRAY_SPIN_ROLL_2_STATUS 1
+#define VALID_CUBE_ARRAY_SPIN_PITCH_2_STATUS 1
 
 #define VALID_CUBE_ARRAY_STATISTIC_STATUS 0
 
 // rubik_cube 联合编译控制宏定义
 #define VALID_RUBIK_CUBE_FULL_DEBUG 0
 #define VALID_RUBIK_CUBE_DONE_STATUS 0
-#define VALID_RUBIK_CUBE_RANDOM_STATUS 1
+#define VALID_RUBIK_CUBE_RANDOM_STATUS 0
 
 // cube_algorithm 联合编译控制宏定义
 #define VALID_CUBE_ALGO_FULL_DEBUG 0
 #define VALID_CUBE_ALGO_IN_STATUS 0
-#define VALID_CUBE_ALGO_EXPAND_STATUS 1
+#define VALID_CUBE_ALGO_EXPAND_STATUS 0
 
 // cube_algorithm 验证区块函数
 void valid_cube_algo(void)
@@ -83,7 +85,7 @@ void valid_rubik_cube(void)
 #endif
 
 #if VALID_RUBIK_CUBE_RANDOM_STATUS || VALID_RUBIK_CUBE_FULL_DEBUG
-    x->rubik_random_state_generator(5);
+    x->rubik_random_state_generator(100);
 #endif
 }
 
@@ -145,11 +147,11 @@ void valid_cube_array(void)
     ret = nanoka_equal(m_keys, 1, NANOKA_ALL);
     std::cout << "nanoka_equal(m_keys, 1, NANOKA_ALL) => " << pr[ret] << std::endl;
 
-    ret = nanoka_equal(m_values, 4, NANOKA_ANY);
-    std::cout << "nanoka_equal(m_values, 4, NANOKA_ANY) => " << pr[ret] << std::endl;
+    ret = nanoka_equal(m_values, 9, NANOKA_ANY);
+    std::cout << "nanoka_equal(m_values, 9, NANOKA_ANY) => " << pr[ret] << std::endl;
 
-    ret = nanoka_equal(m_values, 4, NANOKA_ALL);
-    std::cout << "nanoka_equal(m_values, 4, NANOKA_ANY) => " << pr[ret] << std::endl;
+    ret = nanoka_equal(m_values, 9, NANOKA_ALL);
+    std::cout << "nanoka_equal(m_values, 9, NANOKA_ANY) => " << pr[ret] << std::endl;
 
     std::cout << "开始测试快捷运算函数 nanoka_equal(nanoka_num_t)" << std::endl;
     // 直接读取 Top 面
@@ -187,8 +189,8 @@ void valid_cube_array(void)
     std::cout << "]" << std::endl;
 
     std::vector<nanoka_storage_t> wbuf;
-    for (nanoka_num_t i = 0; i < 24; ++i)
-        wbuf.emplace_back(i % 7 + 1);
+    for (nanoka_num_t i = 0; i < NANOKA_CASE_NUM * NANOKA_CASE_NUM * NANOKA_LAYER_NUM; ++i)
+        wbuf.emplace_back(i % 8 + 1);
 
     x->cube_write_all(wbuf);
     all_storage = x->cube_read_all();
@@ -201,7 +203,12 @@ void valid_cube_array(void)
 #endif
 
 #if VALID_CUBE_ARRAY_SPIN_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
-#if VALID_CUBE_ARRAY_SPIN_YAW_STATUS
+
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::cout << "\n魔方原始状态" << std::endl;
+    x->cube_print();
+
+#if VALID_CUBE_ARRAY_SPIN_YAW_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
     // Z 轴旋转
     _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
     std::cout << "\n对顶面顺时针旋转 90 度" << std::endl;
@@ -219,7 +226,7 @@ void valid_cube_array(void)
     x->cube_print();
 #endif
 
-#if VALID_CUBE_ARRAY_SPIN_ROLL_STATUS
+#if VALID_CUBE_ARRAY_SPIN_ROLL_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
     // Y 轴旋转
     _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
     std::cout << "\n对前面顺时针旋转 90 度" << std::endl;
@@ -237,7 +244,7 @@ void valid_cube_array(void)
     x->cube_print();
 #endif
 
-#if VALID_CUBE_ARRAY_SPIN_PITCH_STATUS
+#if VALID_CUBE_ARRAY_SPIN_PITCH_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
     // X 轴旋转
     _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
     std::cout << "\n对左面顺时针旋转 90 度" << std::endl;
@@ -255,6 +262,60 @@ void valid_cube_array(void)
     x->cube_print();
 #endif
 
+#if VALID_CUBE_ARRAY_SPIN_YAW_2_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
+    // Z 轴旋转2
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::cout << "\n对顶面(内部)顺时针旋转 90 度" << std::endl;
+    x->cube_move(NANOKA_MOVE_YAW_2, MOVE_POS_90);
+    x->cube_print();
+
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::cout << "\n对顶面(内部)旋转 180 度" << std::endl;
+    x->cube_move(NANOKA_MOVE_YAW_2, MOVE_180);
+    x->cube_print();
+
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::cout << "\n对顶面(内部)逆时针旋转 90 度" << std::endl;
+    x->cube_move(NANOKA_MOVE_YAW_2, MOVE_NEG_90);
+    x->cube_print();
+#endif
+
+#if VALID_CUBE_ARRAY_SPIN_ROLL_2_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
+    // Y 轴旋转
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::cout << "\n对前面(内部)顺时针旋转 90 度" << std::endl;
+    x->cube_move(NANOKA_MOVE_ROLL_2, MOVE_POS_90);
+    x->cube_print();
+
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::cout << "\n对前面(内部)旋转 180 度" << std::endl;
+    x->cube_move(NANOKA_MOVE_ROLL_2, MOVE_180);
+    x->cube_print();
+
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::cout << "\n对前面(内部)逆时针旋转 90 度" << std::endl;
+    x->cube_move(NANOKA_MOVE_ROLL_2, MOVE_NEG_90);
+    x->cube_print();
+#endif
+
+#if VALID_CUBE_ARRAY_SPIN_PITCH_2_STATUS || VALID_CUBE_ARRAY_FULL_DEBUG
+    // X 轴旋转
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::cout << "\n对左面(内部)顺时针旋转 90 度" << std::endl;
+    x->cube_move(NANOKA_MOVE_PITCH_2, MOVE_POS_90);
+    x->cube_print();
+
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::cout << "\n对左面(内部)旋转 180 度" << std::endl;
+    x->cube_move(NANOKA_MOVE_PITCH_2, MOVE_180);
+    x->cube_print();
+
+    _valid_cube_array_reset(x, VALID_CUBE_ARRAY_STORAGE_MODE);
+    std::cout << "\n对左面(内部)逆时针旋转 90 度" << std::endl;
+    x->cube_move(NANOKA_MOVE_PITCH_2, MOVE_NEG_90);
+    x->cube_print();
+#endif
+
 #endif
 }
 
@@ -265,7 +326,7 @@ void valid_layer_array(void)
     auto x = std::make_shared<Layer_Array>(NANOKA_CASE_NUM * NANOKA_CASE_NUM);
 
     std::map<nanoka_num_t, const char *> pr = {
-        {0, "<1,2>"}, {1, "<2,4>"}, {2, "<4,3>"}, {3, "<3,1>"}};
+        {0, "<1,2,3>"}, {1, "<3,4,5>"}, {2, "<5,6,7>"}, {3, "<7,8,1>"}, {4, "<8,9,4>"}, {5, "<2,9,6>"}};
 
 #if VALID_LAYER_ARRAY_STORAGE_STATUS || VALID_LAYER_ARRAY_FULL_DEBUG
     x->valid(1);
@@ -280,7 +341,7 @@ void valid_layer_array(void)
     }
     std::cout << " ]" << std::endl;
 
-    for (nanoka_num_t i = 0; i < 4; ++i)
+    for (nanoka_num_t i = 0; i < 6; ++i)
     {
         auto storage_pos = x->read(i);
 
@@ -296,20 +357,10 @@ void valid_layer_array(void)
     x->print_storage();
 
     // 开始验证存储体 API
-    for (nanoka_num_t i = 0; i < NANOKA_CASE_NUM * NANOKA_CASE_NUM; ++i)
+    for (nanoka_num_t i = 0; i < pr.size(); ++i)
     {
-        std::cout << "开始修改位置: " << pr[i] << ", 修改为 <2,3>" << std::endl;
-        x->alter(i, 2, 3);
-        x->print_storage();
-        x->full(1);
-
-        std::cout << "开始修改位置: " << pr[i] << ", 修改为 <5,5>" << std::endl;
-        x->alter(i, 5);
-        x->print_storage();
-        x->full(1);
-
-        std::cout << "开始修改位置: " << pr[i] << ", 修改为 <2,4>" << std::endl;
-        std::vector<nanoka_storage_t> vec = {2, 4};
+        std::cout << "开始修改位置: " << pr[i] << ", 修改为 <2,4,7>" << std::endl;
+        std::vector<nanoka_storage_t> vec = {2, 4, 7};
         x->alter(i, vec);
         x->print_storage();
         x->full(1);
@@ -332,23 +383,6 @@ void valid_layer_array(void)
         std::cout << "逆时针旋转90度" << std::endl;
         x->route_90(true);
         x->print_storage();
-    }
-#endif
-
-#if VALID_LAYER_ARRAY_SPIN_SET_STATUS || VALID_LAYER_ARRAY_FULL_DEBUG
-    // 开始集合计算 API
-    x->valid(1);
-    x->print_storage();
-
-    nanoka_case_t cases = x->get_all_route_case();
-    for (std::vector<nanoka_storage_t> case_m : cases)
-    {
-        std::cout << "集合遍历: [";
-        for (auto s : case_m)
-        {
-            std::cout << " " << static_cast<nanoka_num_t>(s) << std::flush;
-        }
-        std::cout << " ]" << std::endl;
     }
 #endif
 }
