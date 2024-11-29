@@ -123,4 +123,9 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> &data, std::vector<na
 nanoka_status_t nanoka_in(nanoka_map_t &data_map, std::vector<nanoka_storage_t> &data);
 nanoka_status_t nanoka_in(std::vector<std::vector<nanoka_storage_t>> &data_set, std::vector<nanoka_storage_t> &data);
 
+#define NANOKA_DEVELOP_MODE 1
+#define NANOKA_DEPLOY_MODE 0
+
+#define NANOKA_MODE NANOKA_DEPLOY_MODE
+
 #endif

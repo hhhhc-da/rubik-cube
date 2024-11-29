@@ -2,32 +2,35 @@
 
 nanoka_num_t Algo_BFS::nanoka_compute_bfs(nanoka_num_t depth)
 {
+#if NANOKA_MODE
     try
     {
+#endif
         // 我们首先获取我们的初始状态
         nanoka_status_t ret = nanoka_random_state(depth);
+#if NANOKA_MODE
         if (ret == NANOKA_ERROR)
             throw std::runtime_error("nanoka_random_state failed.");
-
+#endif
         std::map<nanoka_num_t, nanoka_num_t> dir = {
             {0, NANOKA_ORDER}, {1, NANOKA_REVERSE}};
 
         // 超时判断变量
-        nanoka_num_t time_out = 20;
+        nanoka_num_t time_out = 100;
         // 首先我们检查一下是否一开始就是对的
         while (--time_out)
         {
-            std::cout << "开始检测魔方状态 (剩余次数: " + std::to_string(time_out) + ")" << std::endl;
+            std::cout << "剩余次数: " + std::to_string(time_out) << std::endl;
+            // 首先检测一下是不是和自己相同
+            if (nanoka_equal(order_map[0].at(0), reverse_map[0].at(0)) == NANOKA_SUCCESS)
+            {
+                std::cout << "魔方本就是完好状态" << std::endl;
+                return 0;
+            }
+
             for (nanoka_num_t i = 0; i < dir.size(); ++i)
             {
                 std::cout << "层数信息: order 层 " << num_pack.at(0) << ", reverse 层 " << num_pack.at(1) << std::endl;
-                // ret = nanoka_compare_map();
-                // // 如果存在相等路径, 那我们直接退出
-                // if (ret == NANOKA_SUCCESS)
-                // {
-                //     std::cout << "搜索到最近的路径" << std::endl;
-                //     return num_pack.at(0) + num_pack.at(1);
-                // }
 
                 // 开始维护我们的状态表, 每次维护后都要重新判断相等
                 ret = nanoka_expand_map(dir[i]);
@@ -39,6 +42,7 @@ nanoka_num_t Algo_BFS::nanoka_compute_bfs(nanoka_num_t depth)
                 }
             }
         }
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -48,6 +52,7 @@ nanoka_num_t Algo_BFS::nanoka_compute_bfs(nanoka_num_t depth)
     {
         std::cerr << "(Algo_BFS::nanoka_compute_bfs) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
+#endif
     return static_cast<nanoka_num_t>(NANOKA_FAILURE);
 }
 
@@ -58,13 +63,14 @@ nanoka_num_t Algo_BFS::nanoka_compute_bfs(nanoka_num_t depth)
  */
 nanoka_status_t Algo_BFS::nanoka_expand_map(nanoka_num_t direction)
 {
+#if NANOKA_MODE
     try
     {
         if (num_pack.size() != 2)
             throw std::runtime_error("num_pack.size() != 2 (size() = " + std::to_string(num_pack.size()) + ")");
-
+#endif
         // 关系映射表
-        std::map<nanoka_num_t, nanoka_num_t> ir = {{0, NANOKA_MOVE_YAW}, {1, NANOKA_MOVE_ROLL}, {2, NANOKA_MOVE_PITCH},{3, NANOKA_MOVE_YAW_2}, {4, NANOKA_MOVE_ROLL_2}, {5, NANOKA_MOVE_PITCH_2}},
+        std::map<nanoka_num_t, nanoka_num_t> ir = {{0, NANOKA_MOVE_YAW}, {1, NANOKA_MOVE_ROLL}, {2, NANOKA_MOVE_PITCH}, {3, NANOKA_MOVE_YAW_2}, {4, NANOKA_MOVE_ROLL_2}, {5, NANOKA_MOVE_PITCH_2}},
                                              op = {{0, MOVE_POS_90}, {1, MOVE_180}, {2, MOVE_NEG_90}};
 
         // 判断是增长哪个方向
@@ -90,8 +96,8 @@ nanoka_status_t Algo_BFS::nanoka_expand_map(nanoka_num_t direction)
                         if (nanoka_in(order_map, buffer) != NANOKA_SUCCESS)
                         {
                             storage.push_back(buffer);
-                            
-                            if(nanoka_in(reverse_map[num_pack.at(1)], buffer) == NANOKA_SUCCESS)
+
+                            if (nanoka_in(reverse_map[num_pack.at(1)], buffer) == NANOKA_SUCCESS)
                             {
                                 std::cout << "最后一层遍历到: " << storage.size() << std::endl;
                                 return NANOKA_ERROR;
@@ -127,8 +133,8 @@ nanoka_status_t Algo_BFS::nanoka_expand_map(nanoka_num_t direction)
                         if (nanoka_in(reverse_map, buffer) != NANOKA_SUCCESS)
                         {
                             storage.push_back(buffer);
-                            
-                            if(nanoka_in(order_map[num_pack.at(0)], buffer) == NANOKA_SUCCESS)
+
+                            if (nanoka_in(order_map[num_pack.at(0)], buffer) == NANOKA_SUCCESS)
                             {
                                 std::cout << "最后一层遍历到: " << storage.size() << std::endl;
                                 return NANOKA_ERROR;
@@ -146,6 +152,7 @@ nanoka_status_t Algo_BFS::nanoka_expand_map(nanoka_num_t direction)
             throw std::runtime_error("nanoka_random_state failed.");
 
         return NANOKA_SUCCESS;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -156,38 +163,33 @@ nanoka_status_t Algo_BFS::nanoka_expand_map(nanoka_num_t direction)
         std::cerr << "(Algo_BFS::nanoka_expand_map) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
 // 魔方新边界比较函数, 只需要对新的边界进行比较
 nanoka_status_t Algo_BFS::nanoka_compare_map(void)
 {
+#if NANOKA_MODE
     try
     {
+#endif
         // 我们直接拿出来我们的最新的一层 MAP 即可
         std::vector<std::vector<nanoka_storage_t>> _order = order_map[num_pack.at(0)];
         std::vector<std::vector<nanoka_storage_t>> _reverse = reverse_map[num_pack.at(1)];
-
+#if NANOKA_MODE
         if (_order.size() == 0 || _reverse.size() == 0)
             throw std::runtime_error("_order.size() = " + std::to_string(_order.size()) + ", _reverse.size() = " + std::to_string(_reverse.size()) + ".");
-
+#endif
         for (auto &elem : _order)
         {
             for (auto &elem2 : _reverse)
             {
-                // std::cout << "开始比较:\n[ " << std::flush;
-                // for (auto &x : elem)
-                //     std::cout << static_cast<nanoka_num_t>(x) << " ";
-                // std::cout << "]" << std::endl;
-                // std::cout << "[ " << std::flush;
-                // for (auto &x : elem2)
-                //     std::cout << static_cast<nanoka_num_t>(x) << " ";
-                // std::cout << "]" << std::endl;
-
                 if (nanoka_equal(elem, elem2) == NANOKA_SUCCESS)
                     return NANOKA_SUCCESS;
             }
         }
         return NANOKA_ERROR;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -198,12 +200,15 @@ nanoka_status_t Algo_BFS::nanoka_compare_map(void)
         std::cerr << "(Algo_BFS::nanoka_compare_map) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
 nanoka_status_t Algo_BFS::nanoka_random_state(nanoka_num_t depth)
 {
+#if NANOKA_MODE
     try
     {
+#endif
         // 先把主状态存入状态表, 然后将随机状态存入状态表
         nanoka_status_t ret = rc->rubik_reset();
         if (ret == NANOKA_ERROR)
@@ -225,6 +230,7 @@ nanoka_status_t Algo_BFS::nanoka_random_state(nanoka_num_t depth)
         num_pack = {0, 0};
 
         return NANOKA_SUCCESS;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -235,4 +241,5 @@ nanoka_status_t Algo_BFS::nanoka_random_state(nanoka_num_t depth)
         std::cerr << "(Algo_BFS::nanoka_random_state) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }

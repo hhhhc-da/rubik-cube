@@ -31,10 +31,12 @@ std::vector<nanoka_num_t> nanoka_get_values(std::map<nanoka_num_t, nanoka_num_t>
     return values;
 }
 
-nanoka_status_t nanoka_equal(std::vector<nanoka_num_t>& data, nanoka_num_t value, nanoka_status_t mode)
+nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> &data, nanoka_num_t value, nanoka_status_t mode)
 {
+#if NANOKA_MODE
     try
     {
+#endif
         if (mode == NANOKA_ANY)
         {
             for (auto i : data)
@@ -50,6 +52,7 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_num_t>& data, nanoka_num_t value
         }
         else
             throw std::runtime_error("mode is invalid" + std::to_string(mode));
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -60,12 +63,15 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_num_t>& data, nanoka_num_t value
         std::cerr << "(::nanoka_equal) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
-nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, nanoka_num_t value, nanoka_status_t mode)
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> &data, nanoka_num_t value, nanoka_status_t mode)
 {
+#if NANOKA_MODE
     try
     {
+#endif
         if (mode == NANOKA_ANY)
         {
             for (auto i : data)
@@ -81,6 +87,7 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, nanoka_num_t v
         }
         else
             throw std::runtime_error("mode is invalid" + std::to_string(mode));
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -91,21 +98,24 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, nanoka_num_t v
         std::cerr << "(::nanoka_equal) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
-nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, std::vector<nanoka_storage_t>& data2)
+nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t> &data, std::vector<nanoka_storage_t> &data2)
 {
+#if NANOKA_MODE
     try
     {
         if (data.size() != data2.size())
             throw std::runtime_error("compared vectors' length not fitable. data.size() = " + std::to_string(data.size()) + " data2.size() = " + std::to_string(data2.size()) + ".");
-
+#endif
         for (nanoka_num_t i = 0; i < data.size(); ++i)
         {
             if (data.at(i) != data2.at(i))
                 return NANOKA_ERROR;
         }
         return NANOKA_SUCCESS;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -116,21 +126,24 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_storage_t>& data, std::vector<na
         std::cerr << "(::nanoka_equal) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
-nanoka_status_t nanoka_equal(std::vector<nanoka_num_t>& data, std::vector<nanoka_num_t>& data2)
+nanoka_status_t nanoka_equal(std::vector<nanoka_num_t> &data, std::vector<nanoka_num_t> &data2)
 {
+#if NANOKA_MODE
     try
     {
         if (data.size() != data2.size())
             throw std::runtime_error("compared vectors' length not fitable. data.size() = " + std::to_string(data.size()) + " data2.size() = " + std::to_string(data2.size()) + ".");
-
+#endif
         for (nanoka_num_t i = 0; i < data.size(); ++i)
         {
             if (data.at(i) != data2.at(i))
                 return NANOKA_ERROR;
         }
         return NANOKA_SUCCESS;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -141,15 +154,17 @@ nanoka_status_t nanoka_equal(std::vector<nanoka_num_t>& data, std::vector<nanoka
         std::cerr << "(::nanoka_equal) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
-nanoka_status_t nanoka_in(nanoka_map_t& data_map, std::vector<nanoka_storage_t>& data)
+nanoka_status_t nanoka_in(nanoka_map_t &data_map, std::vector<nanoka_storage_t> &data)
 {
+#if NANOKA_MODE
     try
     {
         if (data_map.size() == 0)
             throw std::runtime_error("data_map.size() == 0.");
-
+#endif
         for (nanoka_num_t i = 0; i < data_map.size(); ++i)
         {
             // 拿出我们一整层的数据；来进行遍历
@@ -161,6 +176,7 @@ nanoka_status_t nanoka_in(nanoka_map_t& data_map, std::vector<nanoka_storage_t>&
                     return NANOKA_SUCCESS;
         }
         return NANOKA_ERROR;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -171,21 +187,24 @@ nanoka_status_t nanoka_in(nanoka_map_t& data_map, std::vector<nanoka_storage_t>&
         std::cerr << "(::nanoka_equal) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
-nanoka_status_t nanoka_in(std::vector<std::vector<nanoka_storage_t>>& data_set, std::vector<nanoka_storage_t>& data)
+nanoka_status_t nanoka_in(std::vector<std::vector<nanoka_storage_t>> &data_set, std::vector<nanoka_storage_t> &data)
 {
+#if NANOKA_MODE
     try
     {
         if (data_set.size() == 0)
             throw std::runtime_error("data_map.size() == 0.");
-
+#endif
         // 如果发现相等的元素那么我们就检测到存在元素
         for (auto &elem : data_set)
             if (nanoka_equal(elem, data) == NANOKA_SUCCESS)
                 return NANOKA_SUCCESS;
 
         return NANOKA_ERROR;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -196,4 +215,5 @@ nanoka_status_t nanoka_in(std::vector<std::vector<nanoka_storage_t>>& data_set, 
         std::cerr << "(::nanoka_equal) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }

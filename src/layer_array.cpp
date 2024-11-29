@@ -3,12 +3,16 @@
 // 旋转九十度函数 (默认顺时针, 开启 reverse 可以逆时针旋转 90 度)
 nanoka_status_t Layer_Array::route_90(bool reverse = false)
 {
+#if NANOKA_MODE
     // 拷贝一份后构造
     try
     {
+#endif
         nanoka_num_t a = sqrt(data_len);
+#if NANOKA_MODE
         if (a * a != data_len)
             throw std::runtime_error("data_len cannot be divided.");
+#endif
 
         if (reverse)
         {
@@ -30,6 +34,7 @@ nanoka_status_t Layer_Array::route_90(bool reverse = false)
             }
             return NANOKA_SUCCESS;
         }
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -40,13 +45,16 @@ nanoka_status_t Layer_Array::route_90(bool reverse = false)
         std::cerr << "(Layer_Array::route_90) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
 // 将数据拷贝进去
 Layer_Array &Layer_Array::operator=(std::vector<nanoka_storage_t> data)
 {
+#if NANOKA_MODE
     if (data.size() != data_len)
         throw std::runtime_error("(Layer_Array::operator=) vector size not fitable.");
+#endif
 
     storage = data;
     return *this;
@@ -60,11 +68,15 @@ std::vector<nanoka_storage_t> Layer_Array::get_storage(void) const
 
 void Layer_Array::print_storage(void) const
 {
+#if NANOKA_MODE
     try
     {
+#endif
         nanoka_num_t a = sqrt(data_len);
+#if NANOKA_MODE
         if (a * a != data_len)
             throw std::runtime_error("data_len cannot be divided.");
+#endif
 
         std::vector<nanoka_num_t> cube_layer = {0, 1, 2, 7, 8, 3, 6, 5, 4};
 
@@ -81,6 +93,7 @@ void Layer_Array::print_storage(void) const
             }
             std::cout << " |\n";
         }
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -90,20 +103,24 @@ void Layer_Array::print_storage(void) const
     {
         std::cerr << "(Layer_Array::print_storage) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
+#endif
 }
 
 // 读取我感兴趣的部分
 std::vector<nanoka_storage_t> Layer_Array::read(nanoka_num_t pos)
 {
     std::vector<nanoka_storage_t> ret;
+#if NANOKA_MODE
     try
     {
         if (storage.size() != data_len)
             throw std::runtime_error("storage.size() != data_len.");
-
+#endif
         nanoka_num_t a = sqrt(data_len);
+#if NANOKA_MODE
         if (a * a != data_len)
             throw std::runtime_error("data_len cannot be divided.");
+#endif
 
         // 修改顺序 <8,9,4>,<2,9,6>
         std::map<nanoka_num_t, std::vector<nanoka_num_t>> m = {
@@ -112,6 +129,7 @@ std::vector<nanoka_storage_t> Layer_Array::read(nanoka_num_t pos)
         // 修改顺序 <1,2,3>,<3,4,5>,<5,6,7>,<7,8,1>,<8,9,4>,<2,9,6>
         for (nanoka_num_t i = 0; i < a; ++i)
             ret.emplace_back(storage.at(m[pos].at(i)));
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -121,20 +139,23 @@ std::vector<nanoka_storage_t> Layer_Array::read(nanoka_num_t pos)
     {
         std::cerr << "(Layer_Array::print_storage) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
+#endif
     return ret;
 }
 
 // 填充四个区块
 nanoka_status_t Layer_Array::full(nanoka_num_t color)
 {
+#if NANOKA_MODE
     try
     {
         if (data_len <= 0 || storage.size() == 0)
             throw std::runtime_error("Vector storage is empty!");
-
+#endif
         for (nanoka_num_t i = 0; i < data_len; ++i)
             storage.at(i) = color;
         return NANOKA_SUCCESS;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -145,20 +166,23 @@ nanoka_status_t Layer_Array::full(nanoka_num_t color)
         std::cerr << "(Layer_Array::full) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
 // 测试旋转用顺序填充区块函数
 nanoka_status_t Layer_Array::valid(nanoka_num_t start_color)
 {
+#if NANOKA_MODE
     try
     {
         if (data_len <= 0 || storage.size() == 0)
             throw std::runtime_error("Vector storage is empty!");
-
+#endif
         for (nanoka_num_t i = 0; i < data_len; ++i)
             storage.at(i) = start_color + i;
 
         return NANOKA_SUCCESS;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -169,20 +193,23 @@ nanoka_status_t Layer_Array::valid(nanoka_num_t start_color)
         std::cerr << "(Layer_Array::valid) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
 // 修改 vector 区块
 nanoka_status_t Layer_Array::alter(nanoka_num_t pos, std::vector<nanoka_storage_t> data)
 {
+#if NANOKA_MODE
     try
     {
+#endif
         nanoka_num_t a = sqrt(data_len);
+#if NANOKA_MODE
         if (a * a != data_len)
             throw std::runtime_error("data_len cannot be divided.");
-
         if (data.size() < a)
             throw std::runtime_error("(Layer_Array::alter) Vector size is too small!");
-
+#endif
         // 修改顺序 <8,9,4>,<2,9,6>
         std::map<nanoka_num_t, std::vector<nanoka_num_t>> m = {
             {0, {0, 1, 2}}, {1, {2, 3, 4}}, {2, {4, 5, 6}}, {3, {6, 7, 0}}, {4, {7, 8, 3}}, {5, {1, 8, 5}}};
@@ -191,6 +218,7 @@ nanoka_status_t Layer_Array::alter(nanoka_num_t pos, std::vector<nanoka_storage_
             storage.at(m[pos].at(i)) = data.at(i);
 
         return NANOKA_SUCCESS;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -201,4 +229,5 @@ nanoka_status_t Layer_Array::alter(nanoka_num_t pos, std::vector<nanoka_storage_
         std::cerr << "(Layer_Array::alter) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }

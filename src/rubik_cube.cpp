@@ -19,9 +19,10 @@ nanoka_status_t Rubik_Cube::rubik_random_state_generator(nanoka_num_t depth)
     std::map<nanoka_num_t, const char *> op = {
         {0, "+90"}, {1, "180"}, {2, "-90"}};
     std::vector<nanoka_num_t> max_list = {static_cast<nanoka_num_t>(action.size()), static_cast<nanoka_num_t>(op.size())};
-
+#if NANOKA_MODE
     try
     {
+#endif
         for (nanoka_num_t j = 0; j < depth; ++j)
         {
             for (nanoka_num_t i = 0; i < 2; ++i)
@@ -39,6 +40,7 @@ nanoka_status_t Rubik_Cube::rubik_random_state_generator(nanoka_num_t depth)
 
         rubik_print();
         return NANOKA_SUCCESS;
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -49,22 +51,27 @@ nanoka_status_t Rubik_Cube::rubik_random_state_generator(nanoka_num_t depth)
         std::cerr << "(Rubik_Cube::rubik_check) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
     return NANOKA_ERROR;
+#endif
 }
 
 // 魔方快速查看某个面函数
 void Rubik_Cube::rubik_check(std::string position)
 {
+#if NANOKA_MODE
     try
     {
+#endif
         std::map<std::string, nanoka_num_t> f = {
             {"Top", 0}, {"Left", 1}, {"Front", 2}, {"Right", 3}, {"Back", 4}, {"Bottom", 5}};
+#if NANOKA_MODE
         std::vector<std::string> s = {"Top", "Left", "Front", "Right", "Back", "Bottom"};
 
         if (std::find_if(s.begin(), s.end(), [&](std::string x)
                          { return x == position; }) == s.end())
             throw std::runtime_error("Key is invalid.");
-
+#endif
         rubik_storage->cube_print_pos(f[position]);
+#if NANOKA_MODE
     }
     catch (std::runtime_error e)
     {
@@ -74,6 +81,7 @@ void Rubik_Cube::rubik_check(std::string position)
     {
         std::cerr << "(Rubik_Cube::rubik_check) Unknown_error: Process crushed." << " File " << __FILE__ << ", line " << __LINE__ << "." << std::endl;
     }
+#endif
 }
 
 // 检测魔方是否可用
