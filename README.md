@@ -1,7 +1,7 @@
 # 三阶魔方上帝之数
 #### 二阶最终结果
-##### 1.231s - main 分支 
-##### 0.126s - NoAssert 分支
+##### 1.231s - main
+##### 0.126s - NoAssert
 
 #### 存储结构
 ![image](./imgs/storage.jpg)
